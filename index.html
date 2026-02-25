@@ -799,36 +799,57 @@ ______________________________________________。
 
 
       try{
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=UTF-8" },
-          body: JSON.stringify({
-            secret: SHARED_SECRET,
-            data,
-            signatureDataUrl,
-            line: {
-              userId: profile?.userId || "",
-              displayName: profile?.displayName || ""
-            }
-          })
-        });
-      }catch(e){
-        console.warn("Google upload failed:", e);
+const signatureDataUrl = canvas.toDataURL("image/png");
+const contractText = document.getElementById("contractText").innerText;
+
+let pdfUrl = "";
+
+try {
+
+  const res = await fetch(GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "text/plain;charset=UTF-8" },
+    body: JSON.stringify({
+      secret: SHARED_SECRET,
+      data,
+      signatureDataUrl,
+      contractText,
+      line: {
+        userId: profile?.userId || "",
+        displayName: profile?.displayName || ""
       }
+    })
+  });
 
-      showAfterSendUI();
-setOK("簽署資料已送出！\n可以回到聊天室了！");
-resetSubmit();
+  const result = await res.json();
 
+  if (result.ok && result.pdfUrl) {
+    pdfUrl = result.pdfUrl;
+  } else {
+    throw new Error(result.error || "伺服器錯誤");
+  }
 
+} catch (e) {
+  console.warn("Google upload failed:", e);
+  setError("雲端儲存失敗");
+  resetSubmit();
+  return;
+}
 
-    }catch(err){
-      setError(err.message || "送出失敗");
-      resetSubmit();
+/* 把 PDF 連結傳回 LINE */
+if (pdfUrl) {
+  await liff.sendMessages([
+    {
+      type: "text",
+      text:
+`📄 契約簽署完成
+以下為您的電子副本下載連結：
+${pdfUrl}
+
+（本連結已同步寄送至您的Email）`
     }
-  };
-
-})();
+  ]);
+}
 </script>
 
 
