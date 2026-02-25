@@ -567,7 +567,213 @@ ______________________________________________。
   const LIFF_ID = "2008805180-dNJmIam4";
   const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw6F4s0wBzZtl1ZhVs4DFiFuBlDgP0pa5iud10P6jwDX8fLs3pET4lXp8QklKfqWLUvkw/exec";
   const SHARED_SECRET = "lovemood";
+const BACKUP_EMAIL = "mis9544220@gmail.com";     // 店家備份收件信箱
 
+const STORE_NAME = "lovmood寵物造型職人所";
+const STORE_META = "地址：你的地址｜電話：你的電話｜LINE：你的LINE";
+
+const SAVE_PDF_TO_DRIVE = false;
+
+function doPost(e) {
+  try {
+    const raw = (e && e.postData && e.postData.contents)
+      ? e.postData.contents
+      : "";
+
+    const payload = JSON.parse(raw || "{}");
+
+    // 安全驗證
+    if (!payload || payload.secret !== SHARED_SECRET) {
+      return jsonOut({ ok: false, error: "Unauthorized" }, 401);
+    }
+
+    const data = payload.data || {};
+    const sigDataUrl = payload.signatureDataUrl || "";
+
+    const ownerEmail = safe_(data.ownerEmail);
+    if (!ownerEmail) {
+      return jsonOut({ ok: false, error: "Missing ownerEmail" }, 400);
+    }
+    if (!isValidEmail_(ownerEmail)) {
+      return jsonOut({ ok: false, error: "Invalid ownerEmail" }, 400);
+    }
+
+    const pdfBlob = buildContractPdf_(data, sigDataUrl, payload.contractText || "");
+    pdfBlob.setName(makePdfFileName_(data));
+
+    MailApp.sendEmail({
+      to: ownerEmail,
+      cc: BACKUP_EMAIL,
+      subject: STORE_NAME + "｜契約簽署副本（含簽名）",
+      body:
+        "您好，\n\n" +
+        "附件為您本次線上簽署之契約副本（含簽名）。\n" +
+        "如有問題請與我們聯繫。\n\n" +
+        STORE_NAME,
+      name: STORE_NAME,
+      attachments: [pdfBlob]
+    });
+
+    return jsonOut({ ok: true }, 200);
+
+  } catch (err) {
+    return jsonOut(
+      { ok: false, error: String(err && err.message ? err.message : err) },
+      500
+    );
+  }
+}
+
+function jsonOut(obj) {
+  return ContentService
+    .createTextOutput(JSON.stringify(obj))
+    .setMimeType(ContentService.MimeType.JSON);
+}
+
+function makePdfFileName_(data) {
+  const dn =
+    safe_(data.signDate) ||
+    Utilities.formatDate(new Date(), "Asia/Taipei", "yyyy-MM-dd");
+
+  const pet = safe_(data.petName) || "毛孩";
+  const owner = safe_(data.ownerName) || "飼主";
+  const ts = Utilities.formatDate(new Date(), "Asia/Taipei", "yyyyMMdd_HHmmss");
+
+  return `${STORE_NAME}_契約_${dn}_${owner}_${pet}_${ts}.pdf`;
+}
+
+function buildContractPdf_(data, sigDataUrl, contractText) {
+
+  const contractHtml = `<pre class="contract">${esc_(contractText || "")}</pre>`;
+
+  const html = `
+  <html>
+  <head>
+    <meta charset="utf-8">
+    <style>
+      @page { margin: 18mm 14mm; }
+
+      body{
+        font-family: Arial, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+        color:#2F201B;
+      }
+
+      .top{ margin-bottom:12px; }
+      h2{ margin:0 0 6px; font-size:18pt; }
+      .meta{ color:#8B6F61; font-size:10.5pt; line-height:1.5; }
+
+      .box{
+        border:1px solid #E6C9B1;
+        border-radius:12px;
+        padding:14px;
+        background:#FFFBF6;
+        margin-bottom:14px;
+      }
+
+      .row{ margin:6px 0; font-size:12pt; }
+      .label{ color:#8B6F61; }
+
+      .contractWrap{
+        border:1px solid #E6C9B1;
+        border-radius:12px;
+        padding:14px;
+        background:#FFFFFF;
+      }
+
+      .contract{
+        margin:0;
+        white-space:pre-wrap;
+        word-break:break-word;
+        line-height:1.75;
+        font-size:11pt;
+      }
+
+      .sigWrap{
+        margin-top:14px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .sigTitle{
+        font-weight:bold;
+        margin:0 0 8px;
+      }
+
+      img{
+        margin-top:0;
+        border:1px solid #E6C9B1;
+        border-radius:8px;
+        display:block;
+      }
+
+      .footer{
+        margin-top:10px;
+        color:#8B6F61;
+        font-size:10pt;
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div class="top">
+      <h2>${esc_(STORE_NAME)}｜犬貓美容服務定型化契約（簽署副本）</h2>
+      <div class="meta">${esc_(STORE_META)}</div>
+    </div>
+
+    <div class="box">
+      <div class="row"><span class="label">甲方姓名：</span>${esc_(data.ownerName)}</div>
+      <div class="row"><span class="label">身分證字號：</span>${esc_(data.ownerIdNo)}</div>
+      <div class="row"><span class="label">聯絡電話：</span>${esc_(data.ownerPhone)}</div>
+      <div class="row"><span class="label">Email：</span>${esc_(data.ownerEmail)}</div>
+      <div class="row"><span class="label">通訊地址：</span>${esc_(data.ownerAddress)}</div>
+      <div class="row"><span class="label">寵物姓名：</span>${esc_(data.petName)}</div>
+      <div class="row"><span class="label">寵物品種：</span>${esc_(data.petBreed)}</div>
+      <div class="row"><span class="label">體重(公斤)：</span>${esc_(data.petWeight)}</div>
+      <div class="row"><span class="label">審閱/簽署日期：</span>${esc_(data.signDate)}</div>
+    </div>
+
+    <div class="contractWrap">
+      <div style="font-weight:bold; margin-bottom:8px;">契約全文</div>
+      ${contractHtml}
+    </div>
+
+    <div class="contractWrap sigWrap">
+      <div class="sigTitle">甲方簽名</div>
+      ${sigDataUrl
+        ? `<img src="${sigDataUrl}" width="320">`
+        : `<div class="footer">（未附簽名圖）</div>`}
+      <div class="footer">
+        此文件為線上簽署之副本（含簽名），供日後查證留存。
+      </div>
+    </div>
+
+  </body>
+  </html>
+  `;
+
+  return Utilities.newBlob(html, "text/html", "contract.html")
+    .getAs("application/pdf");
+}
+
+function safe_(v) {
+  return (v === null || v === undefined) ? "" : String(v).trim();
+}
+
+function esc_(v) {
+  const s = safe_(v);
+  return s.replace(/[&<>"']/g, ch => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  }[ch]));
+}
+
+function isValidEmail_(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
+}
   const canvas = document.getElementById("sig");
   const clearBtn = document.getElementById("clear");
   const submitBtn = document.getElementById("submit");
