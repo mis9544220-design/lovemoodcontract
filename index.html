@@ -563,8 +563,8 @@ ______________________________________________。
 <script>
 (function(){
 
-  const LIFF_ID = "2009029116-cdxlrzJy";
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9hqVblNOw0sSl4zPkT_KzZv7CYR13N2bTxhqzPwcgNvzN1C81SEgPpM0S4sNy1jRz/exec";
+  const LIFF_ID = "2009029116-cdxlrzJyF";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwqXAQM2Pm6dRYZS9twqXRp9iWxJ_YA5EeFCS14U0BR3cqN0tKEosnKxVtHxs-1GAdc/exec";
   const SHARED_SECRET = "lovemood";
 
   const canvas = document.getElementById("sig");
@@ -583,12 +583,6 @@ ______________________________________________。
   const petBreed = document.getElementById("petBreed");
   const petWeight = document.getElementById("petWeight");
   const signDate = document.getElementById("signDate");
-
-  const afterSendModal = document.getElementById("afterSendModal");
-  const btnBackToScreenshot = document.getElementById("btnBackToScreenshot");
-  const btnCloseToLINE = document.getElementById("btnCloseToLINE");
-  const afterSendBar = document.getElementById("afterSendBar");
-  const btnCloseToLINE2 = document.getElementById("btnCloseToLINE2");
 
   const ctx = canvas.getContext("2d");
   canvas.style.touchAction = "none";
@@ -636,7 +630,9 @@ ______________________________________________。
     return `${yyyy}-${mm}-${dd}`;
   }
   if(signDate && !signDate.value) signDate.value = todayISO();
+  signDate.max = todayISO(); // 限制不能選未來日期
 
+  // Canvas 自動解析度
   function syncSize(){
     const r = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -649,6 +645,7 @@ ______________________________________________。
     ctx.strokeStyle = "#111";
   }
   syncSize();
+  window.addEventListener("resize", syncSize);
 
   let drawing = false;
   let hasStroke = false;
@@ -701,28 +698,8 @@ ______________________________________________。
   };
 
   function showAfterSendUI(){
-    if(afterSendModal) afterSendModal.style.display = "flex";
-    if(afterSendBar) afterSendBar.style.display = "block";
-    if(!afterSendModal && !afterSendBar){
-      alert("已把簽署資料傳送至聊天室。");
-    }
+    alert("資料已送出！可以回到聊天室了！\n請注意：每隻毛孩需各自填寫一份表單送出。");
   }
-
-  function closeToLINE(){
-    if(window.liff && liff.isInClient()){
-      liff.closeWindow();
-    }else{
-      alert("請從 LINE 聊天室內開啟此頁面");
-    }
-  }
-
-  if(btnBackToScreenshot){
-    btnBackToScreenshot.onclick = () => {
-      afterSendModal.style.display = "none";
-    };
-  }
-  if(btnCloseToLINE) btnCloseToLINE.onclick = closeToLINE;
-  if(btnCloseToLINE2) btnCloseToLINE2.onclick = closeToLINE;
 
   async function initLIFF(){
     if(!window.liff){
@@ -829,7 +806,14 @@ Email：${data.ownerEmail}
       }
 
       showAfterSendUI();
-      setOK("資料已送出！\n可以回到聊天室了！");
+      setOK("資料已送出！");
+
+      // 自動清空表單與簽名
+      canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height);
+      hasStroke = false;
+      [ownerName, ownerIdNo, ownerPhone, ownerEmail, ownerAddress, petName, petBreed, petWeight].forEach(input => input.value="");
+      signDate.value = todayISO();
+      agree.checked = false;
       resetSubmit();
 
     }catch(err){
