@@ -3,27 +3,26 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>LoveMood寵物美容服務定型化契約</title>
+  <title>寵物美容服務定型化契約</title>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;600;700;800&display=swap');
 
 :root{
-  --bg:#FFF7ED;             
-  --card:#FFFFFF;         
-  --border:#E6C9B1;
-  --text:#2F201B; 
-  --muted:#8B6F61;
-  --stone:#EFE6DD;
-  --dusty:#E9B18F; 
-  --latte:#C35A2E;
-  --danger:#C0392B;
+  --bg:#F6F1EA;
+  --card:#FFFFFF;          
+  --border:#D8CFC4;
+  --text:#3E342E;
+  --muted:#8A7F74;
+  --stone:#ECE6DE;         
+  --dusty:#C9B8A6;
+  --latte:#8C6E5D; 
+  --danger:#9C4A3B; 
   --radius:22px;
   --radius-sm:16px;
-  --shadow:0 10px 28px rgba(36, 26, 22, .08);
-  --shadow-sm:0 6px 16px rgba(36, 26, 22, .06);
+  --shadow:0 10px 28px rgba(60, 45, 35, .08);
+  --shadow-sm:0 6px 16px rgba(60, 45, 35, .06);
 }
-
 *{box-sizing:border-box}
 
 html,body{
@@ -45,37 +44,11 @@ body{
   overflow-x:hidden;
   letter-spacing:.2px;
 }
-/* 按鈕樣式 */
-.cream-btn {
-  background-color: #00C300; /* LINE 綠色 */
-  color: white;
-  padding: 14px 28px;
-  font-size: 18px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-  text-decoration: none; /* 確保文字沒下劃線 */
-  display: inline-block;
-}
-
-/* hover 浮起效果 */
-.cream-btn:hover {
-  box-shadow: 0 8px 12px rgba(0,0,0,0.3);
-  transform: translateY(-2px);
-}
-
-/* 按下縮小效果 */
-.cream-btn:active {
-  transform: scale(0.95);
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
 
 .wrap{
   max-width:720px;
   margin:0 auto;
-  padding:18px 20px 44px;
+  padding:18px 14px 44px;
 }
 
 #msg{
@@ -89,35 +62,40 @@ body{
 .card{
   background:var(--card);
   border-radius:var(--radius);
-  padding:20px 20px;              
-  margin:15px 15px;
+  padding:20px 18px;              
+  margin:14px 0;
   border:1px solid rgba(230,201,177,.75);
   box-shadow:
     0 18px 45px rgba(36, 26, 22, .08),
     0  2px 10px rgba(36, 26, 22, .04); 
 }
-  
-.brand{
-  font-size: 32px;
-  font-weight: 800;
-  text-align: center;
-}
+
 .title{
   font-size:26px;
   font-weight:800;                
   margin:2px 0 10px;
   letter-spacing:.5px;
-  text-align: center;
 }
 
-.sectiontitle{
-  font-size:26px;               
+.sectionTitle{
+  font-size:17.5px;               
   font-weight:800;                 
-  margin:20px 0 0px;
+  margin:10px 0 12px;
   padding-left:10px;               
   position:relative;
-  letter-spacing:.0px; 
-  text-align: center;
+  letter-spacing:.4px;             
+}
+
+.sectionTitle:before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:3px;
+  bottom:3px;
+  width:2px;                       
+  border-radius:10px;
+  background:var(--latte);
+  opacity:.8;
 }
 
 .subText{
@@ -160,7 +138,7 @@ body{
   border-radius:var(--radius-sm);
   padding:12px;
   background:#FFFBF6;
-  max-height:400px;
+  max-height:360px;
   overflow-y:auto;
   overflow-x:hidden;
   box-shadow:var(--shadow-sm);
@@ -186,7 +164,7 @@ body{
   box-shadow:var(--shadow-sm);
 }
 
-/* 單色按鈕 */
+
 
 .btn{
   width:100%;
@@ -212,7 +190,7 @@ body{
 }
 
 .btnSubmit{
-  background:#C35A2E;
+  background:#9C8374;
   color:#fff;
 }
 
@@ -235,7 +213,7 @@ body{
   margin-top:14px;
   padding:12px;
   border-radius:16px;
-  background:#FFF3E8;
+  background:#F2ECE6;
   border:1px solid var(--border);
 }
 
@@ -244,25 +222,34 @@ body{
   height:22px;
   accent-color:var(--latte);
 }
-  
+
 .checkRow label{
   font-size:17px;
   font-weight:700;
   color:var(--text);
-}
-  .btn-note {
-  font-size: 12px;        /* 小字 */
-  color: var(--muted, #8B6F61); /* 次要文字顏色，或者自己指定 */
-  margin-top: 8px;        /* 距離按鈕的間距 */
-  text-align: center;     /* 文字置中 */
-  font-family: 'Noto Sans TC', sans-serif; /* 與按鈕一致的字體 */
-  margin: 8px 0 0; /* 上方 4px 與按鈕留空，下方 0 不留白 */
 }
 </style>
 
 <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 </head>
 
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="title">寵物美容服務定型化契約</div>
+      <div class="meta">
+        公司名稱：<br>
+        地址：<br>
+        官方LINE：
+      </div>
+    </div>
+
+    <div class="section-title">
+      契約內容（請完整閱讀）
+    </div>
+
+    <div class="contractBox">
+      <pre id="contractText">
 <body>
   <div class="wrapper">
     <div class="card">
@@ -601,7 +588,7 @@ ______________________________________________。
 (function(){
 
   const LIFF_ID = "2009029116-cdxlrzJy";
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxO6LaS8k7kF0qFuVVNZWMFy4KTaBqu-qsJ6m-DPXBDQAybSVYv9EDV7owA-fJXS7by/exec";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyd4ZsWuqrX0c-8ylxLpKYWd8NDABTIu9y_gIs557zDsowd0VwUU1h3XiB0F1k5XVV3/exec";
   const SHARED_SECRET = "lovemood";
 
   const canvas = document.getElementById("sig");
@@ -620,6 +607,12 @@ ______________________________________________。
   const petBreed = document.getElementById("petBreed");
   const petWeight = document.getElementById("petWeight");
   const signDate = document.getElementById("signDate");
+
+  const afterSendModal = document.getElementById("afterSendModal");
+  const btnBackToScreenshot = document.getElementById("btnBackToScreenshot");
+  const btnCloseToLINE = document.getElementById("btnCloseToLINE");
+  const afterSendBar = document.getElementById("afterSendBar");
+  const btnCloseToLINE2 = document.getElementById("btnCloseToLINE2");
 
   const ctx = canvas.getContext("2d");
   canvas.style.touchAction = "none";
@@ -667,9 +660,7 @@ ______________________________________________。
     return `${yyyy}-${mm}-${dd}`;
   }
   if(signDate && !signDate.value) signDate.value = todayISO();
-  signDate.max = todayISO(); // 限制不能選未來日期
 
-  // Canvas 自動解析度
   function syncSize(){
     const r = canvas.getBoundingClientRect();
     const dpr = window.devicePixelRatio || 1;
@@ -682,7 +673,6 @@ ______________________________________________。
     ctx.strokeStyle = "#111";
   }
   syncSize();
-  window.addEventListener("resize", syncSize);
 
   let drawing = false;
   let hasStroke = false;
@@ -735,8 +725,28 @@ ______________________________________________。
   };
 
   function showAfterSendUI(){
-    alert("資料已送出！可以回到聊天室了！\n請注意：每隻毛孩需各自填寫一份表單送出。");
+    if(afterSendModal) afterSendModal.style.display = "flex";
+    if(afterSendBar) afterSendBar.style.display = "block";
+    if(!afterSendModal && !afterSendBar){
+      alert("已把簽署資料傳送至聊天室。");
+    }
   }
+
+  function closeToLINE(){
+    if(window.liff && liff.isInClient()){
+      liff.closeWindow();
+    }else{
+      alert("請從 LINE 聊天室內開啟此頁面");
+    }
+  }
+
+  if(btnBackToScreenshot){
+    btnBackToScreenshot.onclick = () => {
+      afterSendModal.style.display = "none";
+    };
+  }
+  if(btnCloseToLINE) btnCloseToLINE.onclick = closeToLINE;
+  if(btnCloseToLINE2) btnCloseToLINE2.onclick = closeToLINE;
 
   async function initLIFF(){
     if(!window.liff){
@@ -823,43 +833,27 @@ Email：${data.ownerEmail}
       const contractText = (document.getElementById("contractText")?.innerText || "").trim();
       const signatureDataUrl = canvas.toDataURL("image/png");
 
-const res = await fetch(GOOGLE_SCRIPT_URL, {
-  method: "POST",
-  headers: { "Content-Type": "text/plain;charset=UTF-8" },
-  body: JSON.stringify({
-    secret: SHARED_SECRET,
-    data,
-    signatureDataUrl,
-    line: {
-      userId: profile?.userId || "",
-      displayName: profile?.displayName || ""
-    },
-    contractText
-  })
-});
-
-const txt = await res.text();   // 先拿回文字（就算是 JSON 也能看）
-if(!res.ok){
-  throw new Error("伺服器回應失敗：" + res.status + " " + txt);
-}
-
-// 如果你的 GAS 回的是 JSON，這樣可再解析（可選）
-try{
-  const j = JSON.parse(txt);
-  if(j && j.ok === false) throw new Error(j.error || "GAS 回傳 ok=false");
-}catch(e){
-  // 如果不是 JSON 就略過
-}
+      try{
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=UTF-8" },
+          body: JSON.stringify({
+            secret: SHARED_SECRET,
+            data,
+            signatureDataUrl,
+            line: {
+              userId: profile?.userId || "",
+              displayName: profile?.displayName || ""
+            },
+            contractText
+          })
+        });
+      }catch(e){
+        console.warn("Google upload failed:", e);
+      }
 
       showAfterSendUI();
-      setOK("資料已送出！");
-
-      // 自動清空表單與簽名
-      canvas.getContext("2d").clearRect(0,0,canvas.width,canvas.height);
-      hasStroke = false;
-      [ownerName, ownerIdNo, ownerPhone, ownerEmail, ownerAddress, petName, petBreed, petWeight].forEach(input => input.value="");
-      signDate.value = todayISO();
-      agree.checked = false;
+      setOK("資料已送出！\n可以回到聊天室了！");
       resetSubmit();
 
     }catch(err){
