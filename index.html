@@ -823,24 +823,33 @@ Email：${data.ownerEmail}
       const contractText = (document.getElementById("contractText")?.innerText || "").trim();
       const signatureDataUrl = canvas.toDataURL("image/png");
 
-      try{
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=UTF-8" },
-          body: JSON.stringify({
-            secret: SHARED_SECRET,
-            data,
-            signatureDataUrl,
-            line: {
-              userId: profile?.userId || "",
-              displayName: profile?.displayName || ""
-            },
-            contractText
-          })
-        });
-      }catch(e){
-        console.warn("Google upload failed:", e);
-      }
+const res = await fetch(GOOGLE_SCRIPT_URL, {
+  method: "POST",
+  headers: { "Content-Type": "text/plain;charset=UTF-8" },
+  body: JSON.stringify({
+    secret: SHARED_SECRET,
+    data,
+    signatureDataUrl,
+    line: {
+      userId: profile?.userId || "",
+      displayName: profile?.displayName || ""
+    },
+    contractText
+  })
+});
+
+const txt = await res.text();   // 先拿回文字（就算是 JSON 也能看）
+if(!res.ok){
+  throw new Error("伺服器回應失敗：" + res.status + " " + txt);
+}
+
+// 如果你的 GAS 回的是 JSON，這樣可再解析（可選）
+try{
+  const j = JSON.parse(txt);
+  if(j && j.ok === false) throw new Error(j.error || "GAS 回傳 ok=false");
+}catch(e){
+  // 如果不是 JSON 就略過
+}
 
       showAfterSendUI();
       setOK("資料已送出！");
