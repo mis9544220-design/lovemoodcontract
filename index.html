@@ -302,7 +302,7 @@ body{
     </div>
   </div>
 </div>
-
+   <div class="card">
     <div class="contractTitle">契約內容（請完整閱讀）</div>
     <div class="contractBox">
       <pre id="contractText">
@@ -749,7 +749,7 @@ ______________________________________________。
 
   clearBtn.onclick = () => {
     const r = canvas.getBoundingClientRect();
-    ctx.clearRect(0, 0, r.width, r.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     hasStroke = false;
     setError("已清除，請重新簽名");
     resetSubmit();
