@@ -32,18 +32,8 @@ html,body{
 
 body{
   margin:0;
-  background:var(--bg);
-  color:var(--text);
-  font-family:
-    "Noto Sans TC",
-    -apple-system,
-    BlinkMacSystemFont,
-    "PingFang TC",
-    "Heiti TC",
-    "Microsoft JhengHei",
-    sans-serif;
-  overflow-x:hidden;
-  letter-spacing:.2px;
+  background:#f3f4f8;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;
 }
 
 .wrap{
@@ -62,23 +52,33 @@ body{
 
 /* 卡片 */
 .card{
-  background:var(--card);
-  border-radius:var(--radius);
-  padding:20px 18px;
-  margin:14px 0;
-  border:1px solid var(--border);
-  box-shadow:var(--shadow);
+  background:#fff;
+  border-radius:16px;
+  padding:18px 18px;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+  line-height:1.7;
 }
 
 /* 標題 */
 .title{
   font-size:28px;
   font-weight:900;
-  margin:6px 0 16px;
+  margin:8px 0 16px;
   letter-spacing:1px;
   text-align:center;
 }
-
+  
+/* 標題底線 */
+.title::after{
+  content:"";
+  display:block;
+  width:60px;
+  height:3px;
+  background:#d6c4ff;
+  margin:10px auto 0;
+  border-radius:10px;
+}
+  
 .sectionTitle{
   position:relative;
   font-size:22px;
@@ -264,13 +264,12 @@ body{
 /* logo */
 .logoBox{
   text-align:center;
-  margin-top:12px;
-  margin-bottom:-5px;
+  margin-top:14px;
+  margin-bottom:-8px;
 }
 .logoBox img{
   width:150px;
   opacity:.95;
-  filter:grayscale(15%);
 }
 
 /* 資訊框 */
