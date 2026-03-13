@@ -594,7 +594,47 @@ ______________________________________________。
 
       <div class="label">體重（公斤）</div>
       <input id="petWeight" class="input" inputmode="decimal" placeholder="例：6.5">
+      
+<div class="label">寵物性別</div>
+<select id="petGender" class="input">
+  <option value="">請選擇</option>
+  <option>公</option>
+  <option>母</option>
+</select>
 
+<div class="label">是否已結紮</div>
+<select id="petNeutered" class="input">
+  <option value="">請選擇</option>
+  <option>是</option>
+  <option>否</option>
+</select>
+
+<div class="label">寵物年齡</div>
+<input id="petAge" class="input" type="number" placeholder="例：5">
+
+<div class="label">是否有攻擊性</div>
+<select id="petAggressive" class="input">
+  <option value="">請選擇</option>
+  <option>沒有</option>
+  <option>可能會咬人</option>
+  <option>會攻擊</option>
+</select>
+
+<div class="label">是否有疾病 / 過敏</div>
+<textarea 
+id="petHealth"
+class="input"
+rows="3"
+placeholder="例如：心臟病、癲癇、皮膚過敏"
+></textarea>
+
+<div class="label">美容需求 / 特殊注意事項</div>
+<textarea 
+id="petNote"
+class="input"
+rows="3"
+placeholder="例如：頭不要剪太短、怕吹風"
+></textarea>
       <div class="label">審閱 / 簽署日期</div>
       <input type="date" class="input" id="signDate">
     </div>
@@ -637,6 +677,12 @@ ______________________________________________。
   const petName = document.getElementById("petName");
   const petBreed = document.getElementById("petBreed");
   const petWeight = document.getElementById("petWeight");
+  const petGender = document.getElementById("petGender");
+const petNeutered = document.getElementById("petNeutered");
+const petAge = document.getElementById("petAge");
+const petAggressive = document.getElementById("petAggressive");
+const petHealth = document.getElementById("petHealth");
+const petNote = document.getElementById("petNote");
   const signDate = document.getElementById("signDate");
 
   const afterSendModal = document.getElementById("afterSendModal");
@@ -814,6 +860,12 @@ ______________________________________________。
       petName:      requireValue(petName, "寵物姓名"),
       petBreed:     requireValue(petBreed, "寵物品種"),
       petWeight:    requireValue(petWeight, "體重"),
+      petGender: requireValue(petGender, "寵物性別"),
+petNeutered: requireValue(petNeutered, "是否結紮"),
+petAge: requireValue(petAge, "寵物年齡"),
+petAggressive: requireValue(petAggressive, "是否有攻擊性"),
+petHealth: petHealth.value.trim(),
+petNote: petNote.value.trim(),
       signDate:     requireValue(signDate, "簽署日期"),
     };
     if(Object.values(data).some(v => v === null)){
@@ -842,16 +894,25 @@ ______________________________________________。
       }
 
       const textMsg =
+const textMsg =
 `【犬貓美容契約簽署資料】
-甲方姓名：${data.ownerName}
+
+飼主姓名：${data.ownerName}
 聯絡電話：${data.ownerPhone}
 Email：${data.ownerEmail}
-身分證字號：${data.ownerIdNo}
-通訊地址：${data.ownerAddress}
+
 寵物名字：${data.petName}
 品種：${data.petBreed}
-體重(公斤)：${data.petWeight}
-審閱/簽署日期：${data.signDate}
+體重：${data.petWeight} kg
+性別：${data.petGender}
+年齡：${data.petAge}
+是否結紮：${data.petNeutered}
+
+攻擊性：${data.petAggressive}
+健康狀況：${data.petHealth || "無"}
+美容需求：${data.petNote || "無"}
+
+簽署日期：${data.signDate}
 
 （簽署資料與簽名已完成，並已自動寄送副本至您的信箱。
 若有多隻毛孩，請每隻毛孩分別填寫一份表單並各自送出。）`;
