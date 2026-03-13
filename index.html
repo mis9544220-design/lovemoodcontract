@@ -749,13 +749,14 @@ const petNote = document.getElementById("petNote");
     ctx.lineJoin = "round";
     ctx.strokeStyle = "#111";
   }
-  syncSize();
+ window.addEventListener("load", syncSize);
+window.addEventListener("resize", syncSize);
 
   let drawing = false;
   let hasStroke = false;
 
   function point(e){
-    const r = canvas.getBoundingClientRect();
+    const  = canvas.getBoundingClientRect();
     return { x: e.clientX - r.left, y: e.clientY - r.top };
   }
 
@@ -893,7 +894,7 @@ petNote: petNote.value.trim(),
         return;
       }
 
-      const textMsg =
+      
 const textMsg =
 `【犬貓美容契約簽署資料】
 
