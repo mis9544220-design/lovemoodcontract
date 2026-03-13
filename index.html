@@ -749,8 +749,8 @@ const petNote = document.getElementById("petNote");
     ctx.lineJoin = "round";
     ctx.strokeStyle = "#111";
   }
- window.addEventListener("load", syncSize);
-window.addEventListener("resize", syncSize);
+  
+syncSize();
 
   let drawing = false;
   let hasStroke = false;
