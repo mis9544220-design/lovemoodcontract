@@ -755,10 +755,13 @@ window.addEventListener("resize", syncSize);
   let drawing = false;
   let hasStroke = false;
 
-  function point(e){
-    const  = canvas.getBoundingClientRect();
-    return { x: e.clientX - r.left, y: e.clientY - r.top };
-  }
+ function point(e){
+  const r = canvas.getBoundingClientRect();
+  return {
+    x: (e.clientX || e.touches?.[0]?.clientX) - r.left,
+    y: (e.clientY || e.touches?.[0]?.clientY) - r.top
+  };
+}
 
   function lockScroll(lock){
     document.body.style.overflow = lock ? "hidden" : "";
