@@ -449,8 +449,25 @@ body{
       <div class="label">Email（用於寄送契約副本）</div>
       <input id="ownerEmail" class="input" inputmode="email" placeholder="例：abc@gmail.com">
 
-      <div class="label">通訊地址</div>
-      <input id="ownerAddress" class="input" placeholder="請輸入通訊地址">
+Object.keys(cityData).forEach(c=>{
+  const opt=document.createElement("option");
+  opt.value=c;
+  opt.textContent=c;
+  city.appendChild(opt);
+});
+
+city.onchange=()=>{
+
+  district.innerHTML='<option value="">請選擇區域</option>';
+
+  cityData[city.value].forEach(d=>{
+    const opt=document.createElement("option");
+    opt.value=d;
+    opt.textContent=d;
+    district.appendChild(opt);
+  });
+
+};
 
       <div class="label">寵物姓名</div>
       <input id="petName" class="input" placeholder="請輸入寵物姓名">
@@ -540,6 +557,17 @@ placeholder="例如：頭不要剪太短、怕吹風"
   const ownerPhone = document.getElementById("ownerPhone");
   const ownerEmail = document.getElementById("ownerEmail"); 
   const ownerAddress = document.getElementById("ownerAddress");
+  const city = document.getElementById("city");
+const district = document.getElementById("district");
+
+  const cityData = {
+"台北市":["中正區","大同區","中山區","松山區","大安區","萬華區","信義區","士林區","北投區","內湖區","南港區","文山區"],
+"新北市":["板橋區","三重區","中和區","永和區","新莊區","新店區","土城區","蘆洲區","樹林區","汐止區","鶯歌區","三峽區","淡水區","林口區"],
+"桃園市":["桃園區","中壢區","平鎮區","八德區","楊梅區","蘆竹區","龜山區"],
+"台中市":["西屯區","北屯區","南屯區","北區","西區","東區","南區"],
+"台南市":["中西區","東區","南區","北區","安平區","安南區"],
+"高雄市":["前鎮區","三民區","左營區","楠梓區","鼓山區","苓雅區"]
+};
   const petName = document.getElementById("petName");
   const petBreed = document.getElementById("petBreed");
   const petWeight = document.getElementById("petWeight");
@@ -564,12 +592,38 @@ const petNote = document.getElementById("petNote");
     submitBtn.disabled = false;
     submitBtn.textContent = "送出簽名";
   }
+  function isValidTaiwanId(id) {
 
+  const letters = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
+  const code = "10 11 12 13 14 15 16 17 34 18 19 20 21 22 35 23 24 25 26 27 28 29 32 30 31 33".split(" ");
+
+  if(!/^[A-Z][12]\d{8}$/.test(id)) return false;
+
+  const letter = id.charAt(0);
+  const index = letters.indexOf(letter);
+  const n12 = code[index];
+
+  let total =
+      parseInt(n12.charAt(0)) +
+      parseInt(n12.charAt(1)) * 9;
+
+  for(let i=1;i<=8;i++){
+    total += parseInt(id.charAt(i)) * (9-i);
+  }
+
+  total += parseInt(id.charAt(9));
+
+  return total % 10 === 0;
+}
+  
   function setError(t){
     msg.textContent = t || "";
     msg.style.color = "#d21f1f";
   }
-
+  
+  function isValidTaiwanPhone(phone){
+  return /^09\d{8}$/.test(phone);
+}
   function setOK(t){
     msg.textContent = t || "";
     msg.style.color = "#111";
@@ -617,7 +671,25 @@ const petNote = document.getElementById("petNote");
   }
   
 syncSize();
+Object.keys(cityData).forEach(c=>{
+  const opt = document.createElement("option");
+  opt.value = c;
+  opt.textContent = c;
+  city.appendChild(opt);
+});
 
+city.onchange = () => {
+
+  district.innerHTML="";
+
+  cityData[city.value].forEach(d=>{
+    const opt = document.createElement("option");
+    opt.value = d;
+    opt.textContent = d;
+    district.appendChild(opt);
+  });
+
+};
   let drawing = false;
   let hasStroke = false;
 
@@ -724,9 +796,21 @@ syncSize();
     const data = {
       ownerName:    requireValue(ownerName, "甲方姓名"),
       ownerPhone:   requireValue(ownerPhone, "聯絡電話"),
+      if(!isValidTaiwanPhone(data.ownerPhone)){
+  setError("手機格式錯誤，請輸入 09 開頭的10碼手機");
+  ownerPhone.focus();
+  resetSubmit();
+  return;
+}
       ownerEmail:   requireValue(ownerEmail, "Email（用於寄送契約副本）"),
       ownerIdNo:    requireValue(ownerIdNo, "身分證字號"),
-      ownerAddress: requireValue(ownerAddress, "通訊地址"),
+      if(!isValidTaiwanId(data.ownerIdNo)){
+  setError("身分證字號格式錯誤");
+  ownerIdNo.focus();
+  resetSubmit();
+  return;
+}
+      ownerAddress: city.value + district.value,
       petName:      requireValue(petName, "寵物姓名"),
       petBreed:     requireValue(petBreed, "寵物品種"),
       petWeight:    requireValue(petWeight, "體重"),
