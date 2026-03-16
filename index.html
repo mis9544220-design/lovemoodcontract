@@ -551,9 +551,8 @@ placeholder="例如：頭不要剪太短、怕吹風"
   const ownerIdNo = document.getElementById("ownerIdNo");
   const ownerPhone = document.getElementById("ownerPhone");
   const ownerEmail = document.getElementById("ownerEmail"); 
-  const ownerAddress = document.getElementById("ownerAddress");
   const city = document.getElementById("city");
-const district = document.getElementById("district");
+  const district = document.getElementById("district");
 
   const cityData = {
 "台北市":["中正區","大同區","中山區","松山區","大安區","萬華區","信義區","士林區","北投區","內湖區","南港區","文山區"],
@@ -677,7 +676,7 @@ city.onchange = () => {
 
   district.innerHTML='<option value="">請選擇區域</option>';
 
-  cityData[city.value].forEach(d=>{
+ (cityData[city.value] || []).forEach(d=>{
     const opt = document.createElement("option");
     opt.value = d;
     opt.textContent = d;
@@ -787,7 +786,19 @@ city.onchange = () => {
       resetSubmit();
       return;
     }
+if(!city.value){
+  setError("請選擇縣市");
+  city.focus();
+  resetSubmit();
+  return;
+}
 
+if(!district.value){
+  setError("請選擇區域");
+  district.focus();
+  resetSubmit();
+  return;
+}
     const data = {
       ownerName: requireValue(ownerName, "甲方姓名"),
   ownerPhone: requireValue(ownerPhone, "聯絡電話"),
@@ -797,7 +808,7 @@ city.onchange = () => {
   emergencyName: requireValue(emergencyName,"緊急聯絡人"),
   emergencyPhone: requireValue(emergencyPhone,"緊急聯絡人電話"),
 
-  ownerAddress: city.value + district.value,
+  ownerAddress: city.value + " " + district.value,
 
   petName: requireValue(petName, "寵物姓名"),
   petBreed: requireValue(petBreed, "寵物品種"),
@@ -864,6 +875,7 @@ const textMsg =
 飼主姓名：${data.ownerName}
 聯絡電話：${data.ownerPhone}
 Email：${data.ownerEmail}
+地址：${data.ownerAddress}
 緊急聯絡人：${data.emergencyName}
 緊急電話：${data.emergencyPhone}
 寵物名字：${data.petName}
