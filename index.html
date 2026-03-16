@@ -822,8 +822,7 @@ async function initLIFF(){
 
   return true;
 }
-
-  submitBtn.onclick = async () => {
+submitBtn.onclick = async () => {
 
   const ok = await initLIFF();
   if(!ok) return;
@@ -832,42 +831,40 @@ async function initLIFF(){
   submitBtn.disabled = true;
   submitBtn.textContent = "謝謝您！資料上傳中...";
 
-}
+  if(!confirmReview.checked){
+    setError("請確認已取得契約並有合理審閱期間");
+    confirmReview.focus();
+    resetSubmit();
+    return;
+  }
 
-if(!confirmReview.checked){
-  setError("請確認已取得契約並有合理審閱期間");
-  confirmReview.focus();
-  resetSubmit();
-  return;
-}
+  if(!confirmAgree.checked){
+    setError("請確認已閱讀並同意契約內容");
+    confirmAgree.focus();
+    resetSubmit();
+    return;
+  }
 
-if(!confirmAgree.checked){
-  setError("請確認已閱讀並同意契約內容");
-  confirmAgree.focus();
-  resetSubmit();
-  return;
-}
+  if(!confirmElectronic.checked){
+    setError("請同意以電子方式簽署本契約");
+    confirmElectronic.focus();
+    resetSubmit();
+    return;
+  }
 
-if(!confirmElectronic.checked){
-  setError("請同意以電子方式簽署本契約");
-  confirmElectronic.focus();
-  resetSubmit();
-  return;
-}
-    
-if(!city.value){
-  setError("請選擇縣市");
-  city.focus();
-  resetSubmit();
-  return;
-}
+  if(!city.value){
+    setError("請選擇縣市");
+    city.focus();
+    resetSubmit();
+    return;
+  }
 
-if(!district.value){
-  setError("請選擇區域");
-  district.focus();
-  resetSubmit();
-  return;
-}
+  if(!district.value){
+    setError("請選擇區域");
+    district.focus();
+    resetSubmit();
+    return;
+  }
     const data = {
   ownerName: requireValue(ownerName, "甲方姓名"),
   ownerPhone: requireValue(ownerPhone, "聯絡電話"),
