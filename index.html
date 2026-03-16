@@ -815,11 +815,6 @@ async function initLIFF(){
     return false;
   }
 
-  if(!liff.isInClient()){
-    alert("請從 LINE 聊天室開啟此連結");
-    return false;
-  }
-
   return true;
 }
 submitBtn.onclick = async () => {
@@ -911,12 +906,7 @@ confirmElectronic: confirmElectronic.checked ? "☑ 已同意電子簽署" : "�
       return;
     }
 
-    try{
-      const ok = await initLIFF();
-      if(!ok){
-        resetSubmit();
-        return;
-      }
+   
 if(!isValidTaiwanPhone(data.ownerPhone)){
   setError("手機格式錯誤，請輸入 09 開頭的10碼手機");
   ownerPhone.focus();
