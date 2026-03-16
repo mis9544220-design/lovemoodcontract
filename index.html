@@ -449,25 +449,15 @@ body{
       <div class="label">Email（用於寄送契約副本）</div>
       <input id="ownerEmail" class="input" inputmode="email" placeholder="例：abc@gmail.com">
 
-Object.keys(cityData).forEach(c=>{
-  const opt=document.createElement("option");
-  opt.value=c;
-  opt.textContent=c;
-  city.appendChild(opt);
-});
+<div class="label">縣市</div>
+<select id="city" class="input">
+<option value="">請選擇縣市</option>
+</select>
 
-city.onchange=()=>{
-
-  district.innerHTML='<option value="">請選擇區域</option>';
-
-  cityData[city.value].forEach(d=>{
-    const opt=document.createElement("option");
-    opt.value=d;
-    opt.textContent=d;
-    district.appendChild(opt);
-  });
-
-};
+<div class="label">區域</div>
+<select id="district" class="input">
+<option value="">請選擇區域</option>
+</select>
 <div class="label">緊急聯絡人</div>
 <input id="emergencyName" class="input" placeholder="請輸入姓名">
 
@@ -554,10 +544,9 @@ placeholder="例如：頭不要剪太短、怕吹風"
   const clearBtn = document.getElementById("clear");
   const submitBtn = document.getElementById("submit");
   const emergencyName = document.getElementById("emergencyName");
-  const emergencyPhone = document.getElementById("emergencyPhone");t msg = document.getElementById("msg");
-
+  const emergencyPhone = document.getElementById("emergencyPhone");
+  const msg = document.getElementById("msg");
   const agree = document.getElementById("agree");
-
   const ownerName = document.getElementById("ownerName");
   const ownerIdNo = document.getElementById("ownerIdNo");
   const ownerPhone = document.getElementById("ownerPhone");
