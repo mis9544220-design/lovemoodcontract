@@ -450,17 +450,19 @@ body{
       </pre>
       </div>
      
-    <div class="checkboxWrap">
-        <input id="agree" type="checkboxWrap">
-        <label for="agree">我確認於簽約前取得契約內容並有合理審閱期間</label>
-      </div>
-    </div>
-     
-      <div class="checkRow">
-        <input id="agree" type="checkbox">
-        <label for="agree">我已完整閱讀並同意上述契約內容</label>
-      </div>
-    </div>
+  <div class="checkboxWrap">
+  <input id="confirmReview" type="checkbox">
+  <label for="confirmReview">
+  我確認於簽約前取得契約內容並有合理審閱期間
+  </label>
+</div>
+
+<div class="checkboxWrap">
+  <input id="confirmAgree" type="checkbox">
+  <label for="confirmAgree">
+  我已完整閱讀並同意上述契約內容
+  </label>
+</div>
 
     <div class="card">
       <div class="sectionTitle">甲方資料填寫</div>
@@ -576,7 +578,8 @@ placeholder="例如：頭不要剪太短、怕吹風"
   const emergencyName = document.getElementById("emergencyName");
   const emergencyPhone = document.getElementById("emergencyPhone");
   const msg = document.getElementById("msg");
-  const agree = document.getElementById("agree");
+ const confirmReview = document.getElementById("confirmReview");
+const confirmAgree = document.getElementById("confirmAgree");
   const ownerName = document.getElementById("ownerName");
   const ownerIdNo = document.getElementById("ownerIdNo");
   const ownerPhone = document.getElementById("ownerPhone");
@@ -812,11 +815,19 @@ city.onchange = () => {
     submitBtn.disabled = true;
     submitBtn.textContent = "謝謝您！資料上傳中...";
 
-    if(!agree.checked){
-      setError("請先勾選同意契約內容");
-      resetSubmit();
-      return;
-    }
+if(!confirmReview.checked){
+  setError("請確認已取得契約並有合理審閱期間");
+  confirmReview.focus();
+  resetSubmit();
+  return;
+}
+
+if(!confirmAgree.checked){
+  setError("請確認已閱讀並同意契約內容");
+  confirmAgree.focus();
+  resetSubmit();
+  return;
+}
 if(!city.value){
   setError("請選擇縣市");
   city.focus();
