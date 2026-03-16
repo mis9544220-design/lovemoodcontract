@@ -468,7 +468,12 @@ city.onchange=()=>{
   });
 
 };
+<div class="label">緊急聯絡人</div>
+<input id="emergencyName" class="input" placeholder="請輸入姓名">
 
+<div class="label">緊急聯絡人電話</div>
+<input id="emergencyPhone" class="input" placeholder="09XXXXXXXX">
+  
       <div class="label">寵物姓名</div>
       <input id="petName" class="input" placeholder="請輸入寵物姓名">
 
@@ -548,7 +553,8 @@ placeholder="例如：頭不要剪太短、怕吹風"
   const canvas = document.getElementById("sig");
   const clearBtn = document.getElementById("clear");
   const submitBtn = document.getElementById("submit");
-  const msg = document.getElementById("msg");
+  const emergencyName = document.getElementById("emergencyName");
+  const emergencyPhone = document.getElementById("emergencyPhone");t msg = document.getElementById("msg");
 
   const agree = document.getElementById("agree");
 
@@ -802,6 +808,14 @@ city.onchange = () => {
   resetSubmit();
   return;
 }
+       emergencyName: requireValue(emergencyName,"緊急聯絡人"),
+      emergencyPhone: requireValue(emergencyPhone,"緊急聯絡人電話"),
+      if(!isValidTaiwanPhone(data.emergencyPhone)){
+  setError("緊急聯絡人電話格式錯誤");
+  emergencyPhone.focus();
+  resetSubmit();
+  return;
+}
       ownerEmail:   requireValue(ownerEmail, "Email（用於寄送契約副本）"),
       ownerIdNo:    requireValue(ownerIdNo, "身分證字號"),
       if(!isValidTaiwanId(data.ownerIdNo)){
@@ -854,7 +868,8 @@ const textMsg =
 飼主姓名：${data.ownerName}
 聯絡電話：${data.ownerPhone}
 Email：${data.ownerEmail}
-
+緊急聯絡人：${data.emergencyName}
+緊急電話：${data.emergencyPhone}
 寵物名字：${data.petName}
 品種：${data.petBreed}
 體重：${data.petWeight} kg
