@@ -903,7 +903,8 @@ if(!isValidTaiwanPhone(data.emergencyPhone)){
   resetSubmit();
   return;
 }
-
+      
+data.ownerIdNo = data.ownerIdNo.toUpperCase();
 if(!isValidTaiwanId(data.ownerIdNo)){
   setError("身分證字號格式錯誤");
   ownerIdNo.focus();
