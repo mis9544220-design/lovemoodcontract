@@ -786,12 +786,12 @@ city.onchange = () => {
   }
 
   function closeToLINE(){
-    if(window.liff && liff.isInClient()){
-      liff.closeWindow();
-    }else{
-      alert("請從 LINE 聊天室內開啟此頁面");
-    }
+  if(window.liff && liff.isLoggedIn()){
+    liff.closeWindow();
+  }else{
+    alert("請從 LINE 聊天室內開啟此頁面");
   }
+}
 
   if(btnBackToScreenshot){
     btnBackToScreenshot.onclick = () => {
@@ -801,25 +801,38 @@ city.onchange = () => {
   if(btnCloseToLINE) btnCloseToLINE.onclick = closeToLINE;
   if(btnCloseToLINE2) btnCloseToLINE2.onclick = closeToLINE;
 
-  async function initLIFF(){
-    if(!window.liff){
-      throw new Error("LIFF SDK 未載入");
-    }
-    await liff.init({ liffId: LIFF_ID });
-    if(!liff.isInClient()){
-      throw new Error("請從 LINE 聊天室開啟此連結");
-    }
-    if(!liff.isLoggedIn()){
-      liff.login();
-      return false;
-    }
-    return true;
+async function initLIFF(){
+
+  if(!window.liff){
+    alert("LIFF SDK 未載入");
+    return false;
   }
 
+  await liff.init({ liffId: LIFF_ID });
+
+  if(!liff.isLoggedIn()){
+    liff.login();
+    return false;
+  }
+
+  if(!liff.isInClient()){
+    alert("請從 LINE 聊天室開啟此連結");
+    return false;
+  }
+
+  return true;
+}
+
   submitBtn.onclick = async () => {
-    msg.textContent = "";
-    submitBtn.disabled = true;
-    submitBtn.textContent = "謝謝您！資料上傳中...";
+
+  const ok = await initLIFF();
+  if(!ok) return;
+
+  msg.textContent = "";
+  submitBtn.disabled = true;
+  submitBtn.textContent = "謝謝您！資料上傳中...";
+
+}
 
 if(!confirmReview.checked){
   setError("請確認已取得契約並有合理審閱期間");
