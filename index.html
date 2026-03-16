@@ -258,7 +258,30 @@ body{
   font-weight:700;
   color:var(--text);
 }
+/* checkboxWrap 區 */
+.checkboxWrap{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  margin-top:14px;
+  padding:12px;
+  border-radius:16px;
+  background:var(--stone);
+  border:1px solid var(--border);
+}
 
+.checkboxWrap input{
+  width:22px;
+  height:22px;
+  accent-color:var(--latte);
+}
+
+.checkboxWrap label{
+  font-size:17px;
+  font-weight:700;
+  color:var(--text);
+}
+  
 /* logo */
 .logoBox{
   text-align:center;
@@ -426,7 +449,13 @@ body{
 
       </pre>
       </div>
-
+     
+    <div class="checkboxWrap">
+        <input id="agree" type="checkbox">
+        <label for="agree">我確認於簽約前取得契約內容並有合理審閱期間</label>
+      </div>
+    </div>
+     
       <div class="checkRow">
         <input id="agree" type="checkbox">
         <label for="agree">我已完整閱讀並同意上述契約內容</label>
@@ -513,6 +542,7 @@ class="input"
 rows="3"
 placeholder="例如：頭不要剪太短、怕吹風"
 ></textarea>
+
       <div class="label">審閱 / 簽署日期</div>
       <input type="date" class="input" id="signDate">
     </div>
