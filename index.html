@@ -453,17 +453,22 @@ body{
   <div class="checkboxWrap">
   <input id="confirmReview" type="checkbox">
   <label for="confirmReview">
-  我確認於簽約前取得契約內容並有合理審閱期間
+  本人確認於簽約前取得契約內容並有合理審閱期間
   </label>
 </div>
 
 <div class="checkboxWrap">
   <input id="confirmAgree" type="checkbox">
   <label for="confirmAgree">
-  我已完整閱讀並同意上述契約內容
+  本人已完整閱讀並同意上述契約內容
   </label>
 </div>
-
+<div class="checkboxWrap">
+  <input id="confirmElectronic" type="checkbox">
+  <label for="confirmElectronic">
+  本人同意以電子方式簽署本契約並具有書面同等法律效力
+  </label>
+</div>
     <div class="card">
       <div class="sectionTitle">甲方資料填寫</div>
       <div class="subText">請填寫以下資料以完成契約簽署</div>
@@ -580,6 +585,7 @@ placeholder="例如：頭不要剪太短、怕吹風"
   const msg = document.getElementById("msg");
  const confirmReview = document.getElementById("confirmReview");
 const confirmAgree = document.getElementById("confirmAgree");
+  const confirmElectronic = document.getElementById("confirmElectronic");
   const ownerName = document.getElementById("ownerName");
   const ownerIdNo = document.getElementById("ownerIdNo");
   const ownerPhone = document.getElementById("ownerPhone");
@@ -828,6 +834,14 @@ if(!confirmAgree.checked){
   resetSubmit();
   return;
 }
+
+if(!confirmElectronic.checked){
+  setError("請同意以電子方式簽署本契約");
+  confirmElectronic.focus();
+  resetSubmit();
+  return;
+}
+    
 if(!city.value){
   setError("請選擇縣市");
   city.focus();
@@ -842,7 +856,7 @@ if(!district.value){
   return;
 }
     const data = {
-      ownerName: requireValue(ownerName, "甲方姓名"),
+  ownerName: requireValue(ownerName, "甲方姓名"),
   ownerPhone: requireValue(ownerPhone, "聯絡電話"),
   ownerEmail: requireValue(ownerEmail, "Email（用於寄送契約副本）"),
   ownerIdNo: requireValue(ownerIdNo, "身分證字號"),
@@ -863,6 +877,9 @@ if(!district.value){
 
   petHealth: petHealth.value.trim(),
   petNote: petNote.value.trim(),
+confirmReview: confirmReview.checked ? "☑ 已確認" : "☐ 未確認",
+confirmAgree: confirmAgree.checked ? "☑ 已同意" : "☐ 未同意",
+confirmElectronic: confirmElectronic.checked ? "☑ 已同意電子簽署" : "☐ 未同意"
 
   signDate: requireValue(signDate, "簽署日期"),
 };
