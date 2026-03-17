@@ -703,37 +703,15 @@ const petNote = document.getElementById("petNote");
     ctx.strokeStyle = "#111";
   }
   
-syncSize();
-  window.addEventListener("resize", syncSize);
-Object.keys(cityData).forEach(c=>{
-  const opt = document.createElement("option");
-  opt.value = c;
-  opt.textContent = c;
-  city.appendChild(opt);
-});
+ syncSize();
 
-city.onchange = () => {
-
-  district.innerHTML='<option value="">請選擇區域</option>';
-
- (cityData[city.value] || []).forEach(d=>{
-    const opt = document.createElement("option");
-    opt.value = d;
-    opt.textContent = d;
-    district.appendChild(opt);
-  });
-
-};
   let drawing = false;
   let hasStroke = false;
 
- function point(e){
-  const r = canvas.getBoundingClientRect();
-  return {
-    x: (e.clientX || e.touches?.[0]?.clientX) - r.left,
-    y: (e.clientY || e.touches?.[0]?.clientY) - r.top
-  };
-}
+  function point(e){
+    const r = canvas.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
 
   function lockScroll(lock){
     document.body.style.overflow = lock ? "hidden" : "";
@@ -807,21 +785,17 @@ async function initLIFF(){
   }
 
   await liff.init({ liffId: LIFF_ID });
-
-  if(!liff.isLoggedIn()){
-    liff.login();
-    return false;
+if(!liff.isInClient()){
+      throw new Error("請從 LINE 聊天室開啟此連結");
+    }
+    if(!liff.isLoggedIn()){
+      liff.login();
+      return false;
+    }
+    return true;
   }
-
-  return true;
-}
+  
 submitBtn.onclick = async () => {
-
-  try {
-
-    const ok = await initLIFF();
-    if(!ok) return;
-
     msg.textContent = "";
     submitBtn.disabled = true;
     submitBtn.textContent = "謝謝您！資料上傳中...";
@@ -968,7 +942,7 @@ const signatureDataUrl = canvas.toDataURL("image/png");
 
 // ✅ 正確：只有一個 fetch
 try {
-  const res = await fetch(GOOGLE_SCRIPT_URL, {
+   await fetch(GOOGLE_SCRIPT_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({
@@ -982,13 +956,10 @@ try {
       contractText
     })
   });
+}catch(e){
+        console.warn("Google upload failed:", e);
+      }
 
-  const text = await res.text();
-  console.log("🔥 GAS回傳:", text);
-
-} catch (e) {
-  console.warn("Google upload failed:", e);
-}
       showAfterSendUI();
       setOK("資料已送出！\n可以回到聊天室了！");
       resetSubmit();
