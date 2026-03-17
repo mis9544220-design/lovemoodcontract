@@ -817,9 +817,11 @@ if(!liff.isInClient()){
   }
   
 submitBtn.onclick = async () => {
+  try {
     msg.textContent = "";
     submitBtn.disabled = true;
     submitBtn.textContent = "謝謝您！資料上傳中...";
+
 
     // ===== 勾選驗證 =====
     if(!confirmReview.checked){
