@@ -817,11 +817,26 @@ async function initLIFF(){
 
   return true;
 }
-submitBtn.onclick = async () => {
+try {
 
-  msg.textContent = "";
-  submitBtn.disabled = true;
-  submitBtn.textContent = "謝謝您！資料上傳中...";
+    msg.textContent = "";
+    submitBtn.disabled = true;
+    submitBtn.textContent = "謝謝您！資料上傳中...";
+
+    // 👇（你原本所有驗證、data、sendMessage、fetch 全部放這裡）
+
+    showAfterSendUI();
+    setOK("資料已送出！\n可以回到聊天室了！");
+    resetSubmit();
+
+  } catch(err) {
+
+    setError(err.message || "送出失敗");
+    resetSubmit();
+
+  }
+
+};
 
   if(!confirmReview.checked){
     setError("請確認已取得契約並有合理審閱期間");
