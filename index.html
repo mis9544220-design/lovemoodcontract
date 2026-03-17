@@ -819,30 +819,27 @@ async function initLIFF(){
 }
 submitBtn.onclick = async () => {
 
-  const ok = await initLIFF();
-  if(!ok) return;
-
   msg.textContent = "";
   submitBtn.disabled = true;
   submitBtn.textContent = "謝謝您！資料上傳中...";
 
   if(!confirmReview.checked){
     setError("請確認已取得契約並有合理審閱期間");
-    confirmReview.focus();
+   
     resetSubmit();
     return;
   }
 
   if(!confirmAgree.checked){
     setError("請確認已閱讀並同意契約內容");
-    confirmAgree.focus();
+   
     resetSubmit();
     return;
   }
 
   if(!confirmElectronic.checked){
     setError("請同意以電子方式簽署本契約");
-    confirmElectronic.focus();
+   
     resetSubmit();
     return;
   }
