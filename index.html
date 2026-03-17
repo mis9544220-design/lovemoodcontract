@@ -991,3 +991,10 @@ await liff.sendMessages([{ type:"text", text:textMsg }]);
     resetSubmit();
   }
 };
+  (async () => {
+  try {
+    await initLIFF();
+  } catch (e) {
+    console.warn("LIFF 初始化失敗", e);
+  }
+})();
