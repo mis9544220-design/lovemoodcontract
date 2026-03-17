@@ -971,7 +971,7 @@ Email：${data.ownerEmail}
           method: "POST",
         headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            secret: SHARED_SECRET,
+          secret: SHARED_SECRET,
             data,
             signatureDataUrl,
             line: {
