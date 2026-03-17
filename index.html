@@ -958,33 +958,37 @@ Email：${data.ownerEmail}
 （簽署資料與簽名已完成，並已自動寄送副本至您的信箱。
 若有多隻毛孩，請每隻毛孩分別填寫一份表單並各自送出。）`;
 
-      await liff.sendMessages([{ type:"text", text:textMsg }]);
+     await liff.sendMessages([{ type:"text", text:textMsg }]);
 
-      let profile = null;
-      try { profile = await liff.getProfile(); } catch(e){}
+let profile = null;
+try { profile = await liff.getProfile(); } catch(e){}
 
-      const contractText = (document.getElementById("contractText")?.innerText || "").trim();
-      const signatureDataUrl = canvas.toDataURL("image/png");
-        
-      try{
-        await fetch(GOOGLE_SCRIPT_URL, {
-          method: "POST",
-        headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-          secret: SHARED_SECRET,
-            data,
-            signatureDataUrl,
-            line: {
-              userId: profile?.userId || "",
-              displayName: profile?.displayName || ""
-            },
-            contractText
-          })
-        });
-      }catch(e){
-        console.warn("Google upload failed:", e);
-      }
+const contractText = (document.getElementById("contractText")?.innerText || "").trim();
+const signatureDataUrl = canvas.toDataURL("image/png");
 
+// ✅ 正確：只有一個 fetch
+try {
+  const res = await fetch(GOOGLE_SCRIPT_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      secret: SHARED_SECRET,
+      data,
+      signatureDataUrl,
+      line: {
+        userId: profile?.userId || "",
+        displayName: profile?.displayName || ""
+      },
+      contractText
+    })
+  });
+
+  const text = await res.text();
+  console.log("🔥 GAS回傳:", text);
+
+} catch (e) {
+  console.warn("Google upload failed:", e);
+}
       showAfterSendUI();
       setOK("資料已送出！\n可以回到聊天室了！");
       resetSubmit();
