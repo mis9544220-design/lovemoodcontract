@@ -602,25 +602,30 @@ const confirmAgree = document.getElementById("confirmAgree");
 "高雄市":["前鎮區","三民區","左營區","楠梓區","鼓山區","苓雅區"]
 };
   // ===== 初始化縣市 =====
-Object.keys(cityData).forEach(cityName => {
-  const opt = document.createElement("option");
-  opt.value = cityName;
-  opt.textContent = cityName;
-  city.appendChild(opt);
-});
+window.addEventListener("DOMContentLoaded", () => {
 
-// ===== 縣市改變 → 區域更新 =====
-city.addEventListener("change", () => {
-  district.innerHTML = '<option value="">請選擇區域</option>';
-
-  if (!city.value) return;
-
-  cityData[city.value].forEach(d => {
+  // 初始化縣市
+  Object.keys(cityData).forEach(cityName => {
     const opt = document.createElement("option");
-    opt.value = d;
-    opt.textContent = d;
-    district.appendChild(opt);
+    opt.value = cityName;
+    opt.textContent = cityName;
+    city.appendChild(opt);
   });
+
+  // 縣市 → 區域
+  city.addEventListener("change", () => {
+    district.innerHTML = '<option value="">請選擇區域</option>';
+
+    if (!city.value) return;
+
+    cityData[city.value].forEach(d => {
+      const opt = document.createElement("option");
+      opt.value = d;
+      opt.textContent = d;
+      district.appendChild(opt);
+    });
+  });
+
 });
   const petName = document.getElementById("petName");
   const petBreed = document.getElementById("petBreed");
