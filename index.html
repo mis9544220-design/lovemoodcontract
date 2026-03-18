@@ -460,7 +460,7 @@ body{
       <input id="ownerIdNo" class="input" placeholder="請輸入身分證字號">
 
       <div class="label">聯絡電話</div>
-      <input id="ownerPhone" class="input" inputmode="tel" placeholder="09XXXXXXXX">
+      <input id="ownerPhone" class="input" inputmode="tel" placeholder="請輸入聯絡電話">
 
       <div class="label">Email（用於寄送契約副本）</div>
       <input id="ownerEmail" class="input" inputmode="email" placeholder="例：abc@gmail.com">
@@ -514,27 +514,14 @@ body{
   const clearBtn = document.getElementById("clear");
   const submitBtn = document.getElementById("submit");
   const msg = document.getElementById("msg");
+
+  const agree = document.getElementById("agree");
+  const check123 = document.getElementById("check123");
+  const check456 = document.getElementById("check456");
+  
   const ownerName = document.getElementById("ownerName");
   const ownerIdNo = document.getElementById("ownerIdNo");
-  if(ownerIdNo){
-  ownerIdNo.addEventListener("input", () => {
-    if(isValidTaiwanId(ownerIdNo.value)){
-      ownerIdNo.style.borderColor = "green";
-    }else{
-      ownerIdNo.style.borderColor = "red";
-    }
-  });
-  }
-  
   const ownerPhone = document.getElementById("ownerPhone");
-  ownerPhone.addEventListener("input", () => {  
-  if(isValidTaiwanPhone(ownerPhone.value)){  
-    ownerPhone.style.borderColor = "green";  
-  }else{  
-    ownerPhone.style.borderColor = "red";  
-  }  
-});
-}
   const ownerEmail = document.getElementById("ownerEmail"); 
   const ownerAddress = document.getElementById("ownerAddress");
   const emergencyName = document.getElementById("emergencyName");
