@@ -479,8 +479,8 @@ body{
       <div class="label">緊急聯絡人電話</div>
       <input id="emergencyPhone" class="input" placeholder="09XXXXXXXX">
   
-      <div class="label">寵物姓名</div>
-      <input id="petName" class="input" placeholder="請輸入寵物姓名">
+      <div class="label">寵物名字</div>
+      <input id="petName" class="input" placeholder="例:妞妞">
 
       <div class="label">寵物品種</div>
       <input id="petBreed" class="input" placeholder="例：比熊犬">
@@ -493,13 +493,6 @@ body{
   <option value="">請選擇</option>
   <option>公</option>
   <option>母</option>
-</select>
-
-<div class="label">是否已結紮</div>
-<select id="petNeutered" class="input">
-  <option value="">請選擇</option>
-  <option>是</option>
-  <option>否</option>
 </select>
 
 <div class="label">寵物年齡</div>
@@ -525,7 +518,7 @@ body{
 <textarea 
 id="petHealth"
 class="input"
-rows="3"
+rows="2"
 placeholder="例如：心臟病、癲癇、皮膚過敏"
 ></textarea>
 
@@ -533,7 +526,7 @@ placeholder="例如：心臟病、癲癇、皮膚過敏"
 <textarea 
 id="petNote"
 class="input"
-rows="3"
+rows="2"
 placeholder="例如：頭不要剪太短、怕吹風"
 ></textarea>
 
@@ -606,7 +599,6 @@ placeholder="例如：頭不要剪太短、怕吹風"
 }
   const petName = document.getElementById("petName");
   const petGender = document.getElementById("petGender");
-const petNeutered = document.getElementById("petNeutered");
 const petAge = document.getElementById("petAge");
 const petBiteHistory = document.getElementById("petBiteHistory");
 const petSocial = document.getElementById("petSocial");
@@ -935,7 +927,6 @@ Email：${data.ownerEmail}
 品種：${data.petBreed}
 體重(公斤)：${data.petWeight}
 性別：${petGender.value}
-是否結紮：${petNeutered.value}
 年齡：${petAge.value}
 咬人紀錄：${petBiteHistory.value}
 社交狀況：${petSocial.value}
