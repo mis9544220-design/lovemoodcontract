@@ -521,7 +521,24 @@ body{
   
   const ownerName = document.getElementById("ownerName");
   const ownerIdNo = document.getElementById("ownerIdNo");
+  if(ownerIdNo){
+  ownerIdNo.addEventListener("input", () => {
+    if(isValidTaiwanId(ownerIdNo.value)){
+      ownerIdNo.style.borderColor = "green";
+    }else{
+      ownerIdNo.style.borderColor = "red";
+    }
+  });
+}
+  
   const ownerPhone = document.getElementById("ownerPhone");
+  ownerPhone.addEventListener("input", () => {  
+  if(isValidTaiwanPhone(ownerPhone.value)){  
+    ownerPhone.style.borderColor = "green";  
+  }else{  
+    ownerPhone.style.borderColor = "red";  
+  }  
+});
   const ownerEmail = document.getElementById("ownerEmail"); 
   const ownerAddress = document.getElementById("ownerAddress");
   const emergencyName = document.getElementById("emergencyName");
