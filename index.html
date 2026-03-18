@@ -480,9 +480,47 @@ body{
       <div class="label">寵物品種</div>
       <input id="petBreed" class="input" placeholder="例：比熊犬">
 
-      <div class="label">體重（公斤）</div>
-      <input id="petWeight" class="input" inputmode="decimal" placeholder="例：6.5">
+    <div class="label">寵物性別</div>
+    <select id="petGender" class="input">
+  <option value="">請選擇</option>
+  <option>公</option>
+  <option>母</option>
+</select>
 
+<div class="label">寵物年齡</div>
+<input id="petAge" class="input" type="number" placeholder="例：5">
+
+<div class="label">是否曾有咬人紀錄</div>
+<select id="petBiteHistory" class="input">
+  <option value="">請選擇</option>
+  <option>完全沒有</option>
+  <option>有</option>
+  <option>目前沒有但可能會，請美容人員多包涵</option>
+</select>
+
+      <div class="label">是否可社交(貓咪請選第三項)</div>
+<select id="petSocial" class="input">
+  <option value="">請選擇</option>
+  <option>可以（溫和）</option>
+  <option>視情況（需觀察）</option>
+  <option>不可以（需隔離）</option>
+</select>
+
+<div class="label">是否有疾病 / 過敏</div>
+<textarea 
+id="petHealth"
+class="input"
+rows="2"
+placeholder="例如：心臟病、癲癇、皮膚過敏"
+></textarea>
+
+<div class="label">美容需求 / 特殊注意事項</div>
+<textarea 
+id="petNote"
+class="input"
+rows="2"
+placeholder="例如：頭不要剪太短、怕吹風"
+></textarea>
       <div class="label">審閱 / 簽署日期</div>
       <input type="date" class="input" id="signDate">
     </div>
@@ -832,7 +870,12 @@ Email：${data.ownerEmail}
 緊急電話：${data.emergencyPhone}
 寵物名字：${data.petName}
 品種：${data.petBreed}
-體重(公斤)：${data.petWeight}
+性別：${petGender.value}
+年齡：${petAge.value}
+咬人紀錄：${petBiteHistory.value}
+社交狀況：${petSocial.value}
+疾病 / 過敏：${petHealth.value || "無"}
+美容需求：${petNote.value || "無"}
 審閱/簽署日期：${data.signDate}
 
 （簽署資料與簽名已完成，並已自動寄送副本至您的信箱。
