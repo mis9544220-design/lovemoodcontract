@@ -571,15 +571,7 @@ placeholder="例如：頭不要剪太短、怕吹風"
   const ownerAddress = document.getElementById("ownerAddress");
   const emergencyName = document.getElementById("emergencyName");
   const emergencyPhone = document.getElementById("emergencyPhone");
-  if(ownerEmail){
-  ownerEmail.addEventListener("input", () => {
-    if(isValidEmail(ownerEmail.value)){
-      ownerEmail.style.borderColor = "green";
-    }else{
-      ownerEmail.style.borderColor = "red";
-    }
-  });
-}
+ 
   if(ownerPhone){
   ownerPhone.addEventListener("input", () => {  
     if(isValidTaiwanPhone(ownerPhone.value)){  
