@@ -191,7 +191,12 @@ body{
   touch-action:none;
   box-shadow:var(--shadow-sm);
 }
-
+#signatureCanvas {
+  position: relative;
+  z-index: 999;
+  background: #fff;
+  touch-action: none;
+}
 /* 按鈕 */
 .btn{
   width:100%;
@@ -651,7 +656,19 @@ const petNote = document.getElementById("petNote");
     return v;
   }
 
- 
+ function resizeCanvas() {
+  const rect = canvas.getBoundingClientRect();
+  canvas.width = rect.width;
+  canvas.height = rect.height;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+  function down(e){
+  console.log("down觸發");
+}
+  
   function isValidEmail(email){
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
      }
