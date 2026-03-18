@@ -524,6 +524,8 @@ body{
   const ownerPhone = document.getElementById("ownerPhone");
   const ownerEmail = document.getElementById("ownerEmail"); 
   const ownerAddress = document.getElementById("ownerAddress");
+  const emergencyName = document.getElementById("emergencyName");
+  const emergencyPhone = document.getElementById("emergencyPhone");
   const petName = document.getElementById("petName");
   const petBreed = document.getElementById("petBreed");
   const petWeight = document.getElementById("petWeight");
@@ -758,6 +760,27 @@ if(!agree1.checked || !agree2.checked || !agree3.checked){
       return;
     }
 
+    if(!isValidTaiwanPhone(data.ownerPhone)){
+  setError("請輸入正確的手機號碼（09開頭）");
+  ownerPhone.focus();
+  resetSubmit();
+  return;
+}
+
+if(!isValidTaiwanPhone(data.emergencyPhone)){
+  setError("請輸入正確的緊急聯絡人手機");
+  emergencyPhone.focus();
+  resetSubmit();
+  return;
+}
+
+if(!isValidTaiwanId(data.ownerIdNo)){
+  setError("身分證字號格式不正確");
+  ownerIdNo.focus();
+  resetSubmit();
+  return;
+}
+    
     if(!hasStroke){
       setError("請先完成簽名");
       resetSubmit();
