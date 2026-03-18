@@ -466,8 +466,14 @@ body{
       <input id="ownerEmail" class="input" inputmode="email" placeholder="例：abc@gmail.com">
 
       <div class="label">通訊地址</div>
-      <input id="ownerAddress" class="input" placeholder="請輸入通訊地址">
+      <input id="ownerAddress" class="input" placeholder="請輸入縣市+區域">
+      
+      <div class="label">緊急聯絡人</div>
+      <input id="emergencyName" class="input" placeholder="請輸入姓名">
 
+      <div class="label">緊急聯絡人電話</div>
+      <input id="emergencyPhone" class="input" placeholder="09XXXXXXXX">
+  
       <div class="label">寵物姓名</div>
       <input id="petName" class="input" placeholder="請輸入寵物姓名">
 
@@ -698,6 +704,8 @@ if(!agree1.checked || !agree2.checked || !agree3.checked){
       ownerEmail:   requireValue(ownerEmail, "Email（用於寄送契約副本）"),
       ownerIdNo:    requireValue(ownerIdNo, "身分證字號"),
       ownerAddress: requireValue(ownerAddress, "通訊地址"),
+      emergencyName: requireValue(emergencyName,"緊急聯絡人"),
+      emergencyPhone: requireValue(emergencyPhone,"緊急聯絡人電話"),
       petName:      requireValue(petName, "寵物姓名"),
       petBreed:     requireValue(petBreed, "寵物品種"),
       petWeight:    requireValue(petWeight, "體重"),
@@ -735,6 +743,8 @@ if(!agree1.checked || !agree2.checked || !agree3.checked){
 Email：${data.ownerEmail}
 身分證字號：${data.ownerIdNo}
 通訊地址：${data.ownerAddress}
+緊急聯絡人：${data.emergencyName}
+緊急電話：${data.emergencyPhone}
 寵物名字：${data.petName}
 品種：${data.petBreed}
 體重(公斤)：${data.petWeight}
