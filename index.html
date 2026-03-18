@@ -865,7 +865,21 @@ if(!agree1.checked || !agree2.checked || !agree3.checked){
   return;
 }
 
-if(!is if(!petGender.value){
+if(!isValidTaiwanPhone(data.emergencyPhone)){
+  setError("請輸入正確的緊急聯絡人手機");
+  emergencyPhone.focus();
+  resetSubmit();
+  return;
+}
+
+if(!isValidTaiwanId(data.ownerIdNo)){
+  setError("身分證字號格式不正確");
+  ownerIdNo.focus();
+  resetSubmit();
+  return;
+}
+
+if(!petGender.value){
   setError("請選擇寵物性別");
   petGender.focus();
   resetSubmit();
@@ -898,20 +912,7 @@ if(!petSocial.value){
   petSocial.focus();
   resetSubmit();
   return;
-}ValidTaiwanPhone(data.emergencyPhone)){
-  setError("請輸入正確的緊急聯絡人手機");
-  emergencyPhone.focus();
-  resetSubmit();
-  return;
 }
-
-if(!isValidTaiwanId(data.ownerIdNo)){
-  setError("身分證字號格式不正確");
-  ownerIdNo.focus();
-  resetSubmit();
-  return;
-}
-    
     if(!hasStroke){
       setError("請先完成簽名");
       resetSubmit();
