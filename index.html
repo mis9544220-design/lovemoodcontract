@@ -257,7 +257,7 @@ body{
   font-weight:700;
   color:var(--text);
 }
-
+  
 /* logo */
 .logoBox{
   text-align:center;
@@ -431,7 +431,17 @@ body{
         <label for="agree">我已完整閱讀並同意上述契約內容</label>
       </div>
     </div>
+  
+      <div class="checkRow">
+       <input id="check123" type="checkbox">
+       <label for="check123">我確認於簽約前取得契約內容並有合理審閱期間</label>
+    </div>
 
+      <div class="checkRow">
+       <input id="check456" type="checkbox">
+       <label for="check456">本人同意以電子方式簽署本契約並具有書面同等法律效力</label>
+    </div>
+  
     <div class="card">
       <div class="sectionTitle">甲方資料填寫</div>
       <div class="subText">請填寫以下資料以完成契約簽署</div>
@@ -493,7 +503,9 @@ body{
   const msg = document.getElementById("msg");
 
   const agree = document.getElementById("agree");
-
+  const check123 = document.getElementById("check123");
+  const check456 = document.getElementById("check456");
+  
   const ownerName = document.getElementById("ownerName");
   const ownerIdNo = document.getElementById("ownerIdNo");
   const ownerPhone = document.getElementById("ownerPhone");
@@ -669,7 +681,16 @@ body{
       resetSubmit();
       return;
     }
-
+   if(!check123.checked){
+      setError("請先勾選確認簽約前取得契約內容並有合理審閱期");
+      resetSubmit();
+     return;
+   }
+    if(!check456.checked){
+  setError("請勾選同意以電子方式簽署本契約並具有書面同等法律效力");
+  resetSubmit();
+  return;
+}
     const data = {
       ownerName:    requireValue(ownerName, "甲方姓名"),
       ownerPhone:   requireValue(ownerPhone, "聯絡電話"),
