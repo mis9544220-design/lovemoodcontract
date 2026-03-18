@@ -552,11 +552,6 @@ placeholder="例如：頭不要剪太短、怕吹風"
   const clearBtn = document.getElementById("clear");
   const submitBtn = document.getElementById("submit");
   const msg = document.getElementById("msg");
-
-  const agree = document.getElementById("agree");
-  const check123 = document.getElementById("check123");
-  const check456 = document.getElementById("check456");
-  
   const ownerName = document.getElementById("ownerName");
   const ownerIdNo = document.getElementById("ownerIdNo");
   const ownerPhone = document.getElementById("ownerPhone");
@@ -593,7 +588,6 @@ placeholder="例如：頭不要剪太短、怕吹風"
 }
   const petName = document.getElementById("petName");
   const petBreed = document.getElementById("petBreed");
-  const petWeight = document.getElementById("petWeight");
   const signDate = document.getElementById("signDate");
 
   const afterSendModal = document.getElementById("afterSendModal");
@@ -810,7 +804,6 @@ if(!agree1.checked || !agree2.checked || !agree3.checked){
       emergencyPhone: requireValue(emergencyPhone,"緊急聯絡人電話"),
       petName:      requireValue(petName, "寵物姓名"),
       petBreed:     requireValue(petBreed, "寵物品種"),
-      petWeight:    requireValue(petWeight, "體重"),
       signDate:     requireValue(signDate, "簽署日期"),
     };
     if(Object.values(data).some(v => v === null)){
