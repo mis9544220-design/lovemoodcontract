@@ -235,27 +235,32 @@ body{
 }
 
 /* checkbox 區 */
-.checkRow{
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  margin-top:14px;
-  padding:12px;
-  border-radius:16px;
-  background:var(--stone);
-  border:1px solid var(--border);
+.agreementBox{
+  border:1px solid #E6C9B1;
+  background:#FFF8F3;
+  border-radius:12px;
+  padding:16px;
+  margin-top:20px;
 }
 
-.checkRow input{
-  width:22px;
-  height:22px;
-  accent-color:var(--latte);
-}
-
-.checkRow label{
-  font-size:17px;
+.agreementTitle{
   font-weight:700;
-  color:var(--text);
+  margin-bottom:10px;
+  font-size:15px;
+}
+
+.checkItem{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  margin:8px 0;
+  line-height:1.5;
+  cursor:pointer;
+}
+
+.checkItem input{
+  margin-top:3px;
+  transform:scale(1.1);
 }
   
 /* logo */
@@ -426,21 +431,23 @@ body{
       </pre>
       </div>
 
-      <div class="checkRow">
-        <input id="agree" type="checkbox">
-        <label for="agree">我已完整閱讀並同意上述契約內容</label>
-      </div>
-    </div>
-  
-      <div class="checkRow">
-       <input id="check123" type="checkbox">
-       <label for="check123">我確認於簽約前取得契約內容並有合理審閱期間</label>
-    </div>
+  <div class="agreementBox">
+  <label class="checkItem">
+    <input id="agree1" type="checkbox">
+    <span>本人確認於簽約前已取得契約內容並有合理審閱期間</span>
+  </label>
 
-      <div class="checkRow">
-       <input id="check456" type="checkbox">
-       <label for="check456">本人同意以電子方式簽署本契約並具有書面同等法律效力</label>
-    </div>
+  <label class="checkItem">
+    <input id="agree2" type="checkbox">
+    <span>本人已完整閱讀並同意上述契約內容</span>
+  </label>
+
+  <label class="checkItem">
+    <input id="agree3" type="checkbox">
+    <span>本人同意以電子方式簽署本契約並具有書面同等法律效力</span>
+  </label>
+
+</div>
   
     <div class="card">
       <div class="sectionTitle">甲方資料填寫</div>
@@ -676,18 +683,12 @@ body{
     submitBtn.disabled = true;
     submitBtn.textContent = "謝謝您！資料上傳中...";
 
-    if(!agree.checked){
-      setError("請先勾選同意契約內容");
-      resetSubmit();
-      return;
-    }
-   if(!check123.checked){
-      setError("請先勾選確認簽約前取得契約內容並有合理審閱期");
-      resetSubmit();
-     return;
-   }
-    if(!check456.checked){
-  setError("請勾選同意以電子方式簽署本契約並具有書面同等法律效力");
+const agree1 = document.getElementById("agree1");
+const agree2 = document.getElementById("agree2");
+const agree3 = document.getElementById("agree3");
+
+if(!agree1.checked || !agree2.checked || !agree3.checked){
+  setError("請完整勾選所有簽署確認項目");
   resetSubmit();
   return;
 }
