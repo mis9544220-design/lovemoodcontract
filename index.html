@@ -656,18 +656,8 @@ const petNote = document.getElementById("petNote");
     return v;
   }
 
- function resizeCanvas() {
-  const rect = canvas.getBoundingClientRect();
-  canvas.width = rect.width;
-  canvas.height = rect.height;
-}
-
-resizeCanvas();
-window.addEventListener("resize", resizeCanvas);
-
-  function down(e){
-  console.log("down觸發");
-}
+syncSize();
+window.addEventListener("resize", syncSize);
   
   function isValidEmail(email){
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
