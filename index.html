@@ -524,7 +524,7 @@ body{
       ownerIdNo.style.borderColor = "red";
     }
   });
-}
+  }
   
   const ownerPhone = document.getElementById("ownerPhone");
   ownerPhone.addEventListener("input", () => {  
@@ -534,10 +534,21 @@ body{
     ownerPhone.style.borderColor = "red";  
   }  
 });
+}
+ 
+
   const ownerEmail = document.getElementById("ownerEmail"); 
   const ownerAddress = document.getElementById("ownerAddress");
   const emergencyName = document.getElementById("emergencyName");
   const emergencyPhone = document.getElementById("emergencyPhone");
+  emergencyPhone.addEventListener("input", () => {  
+  if(isValidTaiwanPhone(emergencyPhone.value)){  
+    emergencyPhone.style.borderColor = "green";  
+  }else{  
+    emergencyPhone.style.borderColor = "red";  
+  }  
+});
+}
   const petName = document.getElementById("petName");
   const petBreed = document.getElementById("petBreed");
   const petWeight = document.getElementById("petWeight");
