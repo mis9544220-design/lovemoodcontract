@@ -32,14 +32,24 @@ html,body{
 
 body{
   margin:0;
-  background:#f4efe7;
-  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Noto Sans TC",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-family:
+    "Noto Sans TC",
+    -apple-system,
+    BlinkMacSystemFont,
+    "PingFang TC",
+    "Heiti TC",
+    "Microsoft JhengHei",
+    sans-serif;
+  overflow-x:hidden;
+  letter-spacing:.2px;
 }
 
 .wrap{
-  max-width:560px;
+  max-width:520px;
   margin:0 auto;
-  padding:6px 10px 20px;
+  padding:20px 22px;
 }
 
 #msg{
@@ -52,39 +62,30 @@ body{
 
 /* 卡片 */
 .card{
-  background:#fff;
-  border-radius:16px;
-  padding:18px 18px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.08);
-  line-height:1.7;
+  background:var(--card);
+  border-radius:var(--radius);
+  padding:20px 18px;
+  margin:14px 0;
+  border:1px solid var(--border);
+  box-shadow:var(--shadow);
 }
 
 /* 標題 */
 .title{
-  font-size:28px;
-  font-weight:900;
-  margin:4px 0 10px;
-  letter-spacing:1px;
-  text-align:center;
+  font-size:26px;
+  font-weight:800;
+  margin:2px 0 10px;
+  letter-spacing:.5px;
 }
-  
-/* 標題底線 */
-.title::after{
-  content:"";
-  display:block;
-  width:100px;
-  height:2px;
-  background:#c7a98b;
-  margin:1px auto 0;
-  border-radius:10px;
-}
-  
+
 .sectionTitle{
   position:relative;
-  font-size:25px;
+  font-size:22px;
   font-weight:900;
-  margin:24px 0 12px;
-  text-align:center;
+  margin:10px 0 14px;
+  letter-spacing:.6px;
+  text-align:left;
+  color:var(--text);
 }
 
 .sectionTitle:before{
@@ -231,7 +232,7 @@ body{
 
 .meta{
   color:var(--text);
-  font-weight:1000;
+  font-weight:600;
   line-height:1.7;
 }
 
@@ -258,40 +259,17 @@ body{
   font-weight:700;
   color:var(--text);
 }
-/* checkboxWrap 區 */
-.checkboxWrap{
-  display:flex;
-  gap:12px;
-  align-items:flex-start;
-  margin-top:14px;
-  padding:12px;
-  border-radius:16px;
-  background:var(--stone);
-  border:1px solid var(--border);
-}
 
-.checkboxWrap input{
-  width:22px;
-  height:22px;
-  accent-color:var(--latte);
-}
-
-.checkboxWrap label{
-  font-size:17px;
-  font-weight:700;
-  color:var(--text);
-}
-  
 /* logo */
 .logoBox{
   text-align:center;
-  margin-top:14px;
-  margin-bottom:0px;
+  margin-top:60px;
+  margin-bottom:22px;
 }
 .logoBox img{
-  width:150px;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
-  opacity:.95;
+  width:64px;
+  opacity:.9;
+  filter:grayscale(15%);
 }
 
 /* 資訊框 */
@@ -310,13 +288,13 @@ body{
 <body>
 
 <div class="logoBox">
-  <img src="./image.LOVE-MOOD-1.png" alt="LOVE MOOD LOGO">
+  <img src="image.LOVE-MOOD-1.png" alt="LOVE MOOD LOGO">
 </div>
 
 <div class="wrap">
 
   <div class="card">
-    <div class="title">犬貓美容服務定型化契約及基本資料表</div>
+    <div class="title">寵物美容服務定型化契約</div>
   <div class="infoBox">
     <div class="meta">
       一、本表單為，依政府定型官方契約範本製作之基本資料表，請依實際情況填寫，並加入本店官方LINE:@461irbeg。<br>
@@ -325,7 +303,7 @@ body{
     </div>
   </div>
 </div>
-   <div class="card">
+
     <div class="contractTitle">契約內容（請完整閱讀）</div>
     <div class="contractBox">
       <pre id="contractText">
@@ -449,26 +427,13 @@ body{
 
       </pre>
       </div>
-     
-  <div class="checkboxWrap">
-  <input id="confirmReview" type="checkbox">
-  <label for="confirmReview">
-  本人確認於簽約前取得契約內容並有合理審閱期間
-  </label>
-</div>
 
-<div class="checkboxWrap">
-  <input id="confirmAgree" type="checkbox">
-  <label for="confirmAgree">
-  本人已完整閱讀並同意上述契約內容
-  </label>
-</div>
-<div class="checkboxWrap">
-  <input id="confirmElectronic" type="checkbox">
-  <label for="confirmElectronic">
-  本人同意以電子方式簽署本契約並具有書面同等法律效力
-  </label>
-</div>
+      <div class="checkRow">
+        <input id="agree" type="checkbox">
+        <label for="agree">我已完整閱讀並同意上述契約內容</label>
+      </div>
+    </div>
+
     <div class="card">
       <div class="sectionTitle">甲方資料填寫</div>
       <div class="subText">請填寫以下資料以完成契約簽署</div>
@@ -485,21 +450,9 @@ body{
       <div class="label">Email（用於寄送契約副本）</div>
       <input id="ownerEmail" class="input" inputmode="email" placeholder="例：abc@gmail.com">
 
-<div class="label">縣市</div>
-<select id="city" class="input">
-<option value="">請選擇縣市</option>
-</select>
+      <div class="label">通訊地址</div>
+      <input id="ownerAddress" class="input" placeholder="請輸入通訊地址">
 
-<div class="label">區域</div>
-<select id="district" class="input">
-<option value="">請選擇區域</option>
-</select>
-<div class="label">緊急聯絡人</div>
-<input id="emergencyName" class="input" placeholder="請輸入姓名">
-
-<div class="label">緊急聯絡人電話</div>
-<input id="emergencyPhone" class="input" placeholder="09XXXXXXXX">
-  
       <div class="label">寵物姓名</div>
       <input id="petName" class="input" placeholder="請輸入寵物姓名">
 
@@ -508,47 +461,6 @@ body{
 
       <div class="label">體重（公斤）</div>
       <input id="petWeight" class="input" inputmode="decimal" placeholder="例：6.5">
-      
-<div class="label">寵物性別</div>
-<select id="petGender" class="input">
-  <option value="">請選擇</option>
-  <option>公</option>
-  <option>母</option>
-</select>
-
-<div class="label">是否已結紮</div>
-<select id="petNeutered" class="input">
-  <option value="">請選擇</option>
-  <option>是</option>
-  <option>否</option>
-</select>
-
-<div class="label">寵物年齡</div>
-<input id="petAge" class="input" type="number" placeholder="例：5">
-
-<div class="label">是否有攻擊性</div>
-<select id="petAggressive" class="input">
-  <option value="">請選擇</option>
-  <option>沒有</option>
-  <option>可能會咬人</option>
-  <option>會攻擊</option>
-</select>
-
-<div class="label">是否有疾病 / 過敏</div>
-<textarea 
-id="petHealth"
-class="input"
-rows="3"
-placeholder="例如：心臟病、癲癇、皮膚過敏"
-></textarea>
-
-<div class="label">美容需求 / 特殊注意事項</div>
-<textarea 
-id="petNote"
-class="input"
-rows="3"
-placeholder="例如：頭不要剪太短、怕吹風"
-></textarea>
 
       <div class="label">審閱 / 簽署日期</div>
       <input type="date" class="input" id="signDate">
@@ -574,72 +486,24 @@ placeholder="例如：頭不要剪太短、怕吹風"
 (function(){
 
   const LIFF_ID = "2009029116-cdxlrzJy";
-  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbznVaJSHM-ZTtGlzSFuI7A1sebCMDTrNibgeE6BAKHAaunSf0zm_pwy4va1_6_amv1m3A/exec";
+  const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyp5OeF4r2B84LQjqEm3wh9RvaHIHXUev0W-lvUbgyi7Xi-5jLctdp_7-U7csl_cexW7A/exec";
   const SHARED_SECRET = "lovemood";
 
   const canvas = document.getElementById("sig");
   const clearBtn = document.getElementById("clear");
   const submitBtn = document.getElementById("submit");
-  const emergencyName = document.getElementById("emergencyName");
-  const emergencyPhone = document.getElementById("emergencyPhone");
   const msg = document.getElementById("msg");
- const confirmReview = document.getElementById("confirmReview");
-const confirmAgree = document.getElementById("confirmAgree");
-  const confirmElectronic = document.getElementById("confirmElectronic");
+
+  const agree = document.getElementById("agree");
+
   const ownerName = document.getElementById("ownerName");
   const ownerIdNo = document.getElementById("ownerIdNo");
   const ownerPhone = document.getElementById("ownerPhone");
   const ownerEmail = document.getElementById("ownerEmail"); 
- 
-function initCitySelector(){
-
-  const city = document.getElementById("city");
-  const district = document.getElementById("district");
-
-  if (!city || !district) {
-    console.error("❌ 找不到 city 或 district 元素");
-    return;
-  }
-
-  const cityData = {
-    "台北市":["中正區","大同區","中山區","松山區","大安區","萬華區","信義區","士林區","北投區","內湖區","南港區","文山區"],
-    "新北市":["板橋區","三重區","中和區","永和區","新莊區","新店區","土城區","蘆洲區","樹林區","汐止區","鶯歌區","三峽區","淡水區","林口區"],
-    "桃園市":["桃園區","中壢區","平鎮區","八德區","楊梅區","蘆竹區","龜山區"]
-  };
-
-  city.innerHTML = '<option value="">請選擇縣市</option>';
-
-  Object.keys(cityData).forEach(cityName => {
-    const opt = document.createElement("option");
-    opt.value = cityName;
-    opt.textContent = cityName;
-    city.appendChild(opt);
-  });
-
-  city.addEventListener("change", () => {
-    district.innerHTML = '<option value="">請選擇區域</option>';
-
-    if (!city.value) return;
-
-    cityData[city.value].forEach(d => {
-      const opt = document.createElement("option");
-      opt.value = d;
-      opt.textContent = d;
-      district.appendChild(opt);
-    });
-  });
-}
-   // 🔥 直接呼叫（不要等 DOMContentLoaded)
-     initCitySelector();
+  const ownerAddress = document.getElementById("ownerAddress");
   const petName = document.getElementById("petName");
   const petBreed = document.getElementById("petBreed");
   const petWeight = document.getElementById("petWeight");
-  const petGender = document.getElementById("petGender");
-const petNeutered = document.getElementById("petNeutered");
-const petAge = document.getElementById("petAge");
-const petAggressive = document.getElementById("petAggressive");
-const petHealth = document.getElementById("petHealth");
-const petNote = document.getElementById("petNote");
   const signDate = document.getElementById("signDate");
 
   const afterSendModal = document.getElementById("afterSendModal");
@@ -655,38 +519,12 @@ const petNote = document.getElementById("petNote");
     submitBtn.disabled = false;
     submitBtn.textContent = "送出簽名";
   }
-  function isValidTaiwanId(id) {
 
-  const letters = "ABCDEFGHJKLMNPQRSTUVXYWZIO";
-  const code = "10 11 12 13 14 15 16 17 34 18 19 20 21 22 35 23 24 25 26 27 28 29 32 30 31 33".split(" ");
-
-  if(!/^[A-Z][12]\d{8}$/.test(id)) return false;
-
-  const letter = id.charAt(0);
-  const index = letters.indexOf(letter);
-  const n12 = code[index];
-
-  let total =
-      parseInt(n12.charAt(0)) +
-      parseInt(n12.charAt(1)) * 9;
-
-  for(let i=1;i<=8;i++){
-    total += parseInt(id.charAt(i)) * (9-i);
-  }
-
-  total += parseInt(id.charAt(9));
-
-  return total % 10 === 0;
-}
-  
   function setError(t){
     msg.textContent = t || "";
     msg.style.color = "#d21f1f";
   }
-  
-  function isValidTaiwanPhone(phone){
-  return /^09\d{8}$/.test(phone);
-}
+
   function setOK(t){
     msg.textContent = t || "";
     msg.style.color = "#111";
@@ -732,8 +570,7 @@ const petNote = document.getElementById("petNote");
     ctx.lineJoin = "round";
     ctx.strokeStyle = "#111";
   }
-  
- syncSize();
+  syncSize();
 
   let drawing = false;
   let hasStroke = false;
@@ -779,7 +616,7 @@ const petNote = document.getElementById("petNote");
 
   clearBtn.onclick = () => {
     const r = canvas.getBoundingClientRect();
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, r.width, r.height);
     hasStroke = false;
     setError("已清除，請重新簽名");
     resetSubmit();
@@ -794,12 +631,12 @@ const petNote = document.getElementById("petNote");
   }
 
   function closeToLINE(){
-  if(window.liff && liff.isLoggedIn()){
-    liff.closeWindow();
-  }else{
-    alert("請從 LINE 聊天室內開啟此頁面");
+    if(window.liff && liff.isInClient()){
+      liff.closeWindow();
+    }else{
+      alert("請從 LINE 聊天室內開啟此頁面");
+    }
   }
-}
 
   if(btnBackToScreenshot){
     btnBackToScreenshot.onclick = () => {
@@ -808,14 +645,13 @@ const petNote = document.getElementById("petNote");
   }
   if(btnCloseToLINE) btnCloseToLINE.onclick = closeToLINE;
   if(btnCloseToLINE2) btnCloseToLINE2.onclick = closeToLINE;
-  
-async function initLIFF(){
-  if(!window.liff){
-    throw new Error("LIFF SDK 未載入");
-  }
 
-  await liff.init({ liffId: LIFF_ID });
-if(!liff.isInClient()){
+  async function initLIFF(){
+    if(!window.liff){
+      throw new Error("LIFF SDK 未載入");
+    }
+    await liff.init({ liffId: LIFF_ID });
+    if(!liff.isInClient()){
       throw new Error("請從 LINE 聊天室開啟此連結");
     }
     if(!liff.isLoggedIn()){
@@ -824,80 +660,29 @@ if(!liff.isInClient()){
     }
     return true;
   }
-  
-submitBtn.onclick = async () => {
-  try {
+
+  submitBtn.onclick = async () => {
     msg.textContent = "";
     submitBtn.disabled = true;
     submitBtn.textContent = "謝謝您！資料上傳中...";
 
-
-    // ===== 勾選驗證 =====
-    if(!confirmReview.checked){
-      setError("請確認已取得契約並有合理審閱期間");
+    if(!agree.checked){
+      setError("請先勾選同意契約內容");
       resetSubmit();
       return;
     }
 
-    if(!confirmAgree.checked){
-      setError("請確認已閱讀並同意契約內容");
-      resetSubmit();
-      return;
-    }
-
-    if(!confirmElectronic.checked){
-      setError("請同意以電子方式簽署本契約");
-      resetSubmit();
-      return;
-    }
-
-    if(!city.value){
-      setError("請選擇縣市");
-      city.focus();
-      resetSubmit();
-      return;
-    }
-
-    if(!district.value){
-      setError("請選擇區域");
-      district.focus();
-      resetSubmit();
-      return;
-    }
-
-    // ===== 建立 data =====
     const data = {
-      ownerName: requireValue(ownerName, "甲方姓名"),
-      ownerPhone: requireValue(ownerPhone, "聯絡電話"),
-      ownerEmail: requireValue(ownerEmail, "Email"),
-      ownerIdNo: requireValue(ownerIdNo, "身分證字號"),
-
-      emergencyName: requireValue(emergencyName,"緊急聯絡人"),
-      emergencyPhone: requireValue(emergencyPhone,"緊急聯絡人電話"),
-
-      ownerAddress: city.value + " " + district.value,
-
-      petName: requireValue(petName, "寵物姓名"),
-      petBreed: requireValue(petBreed, "寵物品種"),
-      petWeight: requireValue(petWeight, "體重"),
-
-      petGender: requireValue(petGender, "寵物性別"),
-      petNeutered: requireValue(petNeutered, "是否結紮"),
-      petAge: requireValue(petAge, "寵物年齡"),
-      petAggressive: requireValue(petAggressive, "是否有攻擊性"),
-
-      petHealth: petHealth.value.trim(),
-      petNote: petNote.value.trim(),
-
-      confirmReview: confirmReview.checked ? "☑ 已確認" : "☐ 未確認",
-      confirmAgree: confirmAgree.checked ? "☑ 已同意" : "☐ 未同意",
-      confirmElectronic: confirmElectronic.checked ? "☑ 已同意電子簽署" : "☐ 未同意",
-
-      signDate: requireValue(signDate, "簽署日期"),
-
-      signature: canvas.toDataURL("image/png") // ⭐ 這行很重要
+      ownerName:    requireValue(ownerName, "甲方姓名"),
+      ownerPhone:   requireValue(ownerPhone, "聯絡電話"),
+      ownerEmail:   requireValue(ownerEmail, "Email（用於寄送契約副本）"),
+      ownerIdNo:    requireValue(ownerIdNo, "身分證字號"),
+      ownerAddress: requireValue(ownerAddress, "通訊地址"),
+      petName:      requireValue(petName, "寵物姓名"),
+      petBreed:     requireValue(petBreed, "寵物品種"),
+      petWeight:    requireValue(petWeight, "體重"),
+      signDate:     requireValue(signDate, "簽署日期"),
     };
-
     if(Object.values(data).some(v => v === null)){
       resetSubmit();
       return;
@@ -916,94 +701,67 @@ submitBtn.onclick = async () => {
       return;
     }
 
-   
-if(!isValidTaiwanPhone(data.ownerPhone)){
-  setError("手機格式錯誤，請輸入 09 開頭的10碼手機");
-  ownerPhone.focus();
-  resetSubmit();
-  return;
-}
+    try{
+      const ok = await initLIFF();
+      if(!ok){
+        resetSubmit();
+        return;
+      }
 
-if(!isValidTaiwanPhone(data.emergencyPhone)){
-  setError("緊急聯絡人電話格式錯誤");
-  emergencyPhone.focus();
-  resetSubmit();
-  return;
-}
-      
-data.ownerIdNo = data.ownerIdNo.toUpperCase();
-if(!isValidTaiwanId(data.ownerIdNo)){
-  setError("身分證字號格式錯誤");
-  ownerIdNo.focus();
-  resetSubmit();
-  return;
-}
-      
-const textMsg =
+      const textMsg =
 `【犬貓美容契約簽署資料】
-
-飼主姓名：${data.ownerName}
+甲方姓名：${data.ownerName}
 聯絡電話：${data.ownerPhone}
 Email：${data.ownerEmail}
-地址：${data.ownerAddress}
-緊急聯絡人：${data.emergencyName}
-緊急電話：${data.emergencyPhone}
+身分證字號：${data.ownerIdNo}
+通訊地址：${data.ownerAddress}
 寵物名字：${data.petName}
 品種：${data.petBreed}
-體重：${data.petWeight} kg
-性別：${data.petGender}
-年齡：${data.petAge}
-是否結紮：${data.petNeutered}
-
-攻擊性：${data.petAggressive}
-健康狀況：${data.petHealth || "無"}
-美容需求：${data.petNote || "無"}
-
-簽署日期：${data.signDate}
+體重(公斤)：${data.petWeight}
+審閱/簽署日期：${data.signDate}
 
 （簽署資料與簽名已完成，並已自動寄送副本至您的信箱。
 若有多隻毛孩，請每隻毛孩分別填寫一份表單並各自送出。）`;
 
-await liff.sendMessages([{ type:"text", text:textMsg }]);
+      await liff.sendMessages([{ type:"text", text:textMsg }]);
 
-    let profile = null;
-    try { profile = await liff.getProfile(); } catch(e){}
+      let profile = null;
+      try { profile = await liff.getProfile(); } catch(e){}
 
-    const contractText = (document.getElementById("contractText")?.innerText || "").trim();
-    const signatureDataUrl = canvas.toDataURL("image/png");
+      const contractText = (document.getElementById("contractText")?.innerText || "").trim();
+      const signatureDataUrl = canvas.toDataURL("image/png");
 
-    try {
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          secret: SHARED_SECRET,
-          data,
-          signatureDataUrl,
-          line: {
-            userId: profile?.userId || "",
-            displayName: profile?.displayName || ""
-          },
-          contractText
-        })
-      });
-    } catch(e){
-      console.warn("Google upload failed:", e);
+      try{
+        await fetch(GOOGLE_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=UTF-8" },
+          body: JSON.stringify({
+            secret: SHARED_SECRET,
+            data,
+            signatureDataUrl,
+            line: {
+              userId: profile?.userId || "",
+              displayName: profile?.displayName || ""
+            },
+            contractText
+          })
+        });
+      }catch(e){
+        console.warn("Google upload failed:", e);
+      }
+
+      showAfterSendUI();
+      setOK("資料已送出！\n可以回到聊天室了！");
+      resetSubmit();
+
+    }catch(err){
+      setError(err.message || "送出失敗");
+      resetSubmit();
     }
+  };
 
-    showAfterSendUI();
-    setOK("資料已送出！\n可以回到聊天室了！");
-    resetSubmit();
-
-  } catch(err){
-    setError(err.message || "送出失敗");
-    resetSubmit();
-  }
-};
-  (async () => {
-  try {
-    await initLIFF();
-  } catch (e) {
-    console.warn("LIFF 初始化失敗", e);
-  }
 })();
+</script>
+
+</body>
+</html>
