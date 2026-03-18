@@ -571,6 +571,15 @@ placeholder="例如：頭不要剪太短、怕吹風"
   const ownerAddress = document.getElementById("ownerAddress");
   const emergencyName = document.getElementById("emergencyName");
   const emergencyPhone = document.getElementById("emergencyPhone");
+  if(ownerEmail){
+  ownerEmail.addEventListener("input", () => {
+    if(isValidEmail(ownerEmail.value)){
+      ownerEmail.style.borderColor = "green";
+    }else{
+      ownerEmail.style.borderColor = "red";
+    }
+  });
+}
   if(ownerPhone){
   ownerPhone.addEventListener("input", () => {  
     if(isValidTaiwanPhone(ownerPhone.value)){  
@@ -650,6 +659,7 @@ const petNote = document.getElementById("petNote");
     return v;
   }
 
+ 
   function isValidEmail(email){
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
      }
@@ -846,7 +856,40 @@ if(!agree1.checked || !agree2.checked || !agree3.checked){
   return;
 }
 
-if(!isValidTaiwanPhone(data.emergencyPhone)){
+if(!is if(!petGender.value){
+  setError("請選擇寵物性別");
+  petGender.focus();
+  resetSubmit();
+  return;
+}
+
+if(!petNeutered.value){
+  setError("請選擇是否結紮");
+  petNeutered.focus();
+  resetSubmit();
+  return;
+}
+
+if(!petAge.value){
+  setError("請填寫寵物年齡");
+  petAge.focus();
+  resetSubmit();
+  return;
+}
+
+if(!petBiteHistory.value){
+  setError("請選擇咬人紀錄");
+  petBiteHistory.focus();
+  resetSubmit();
+  return;
+}
+
+if(!petSocial.value){
+  setError("請選擇社交狀況");
+  petSocial.focus();
+  resetSubmit();
+  return;
+}ValidTaiwanPhone(data.emergencyPhone)){
   setError("請輸入正確的緊急聯絡人手機");
   emergencyPhone.focus();
   resetSubmit();
