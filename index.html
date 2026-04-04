@@ -513,6 +513,27 @@ body{
 <div class="label">寵物年齡(未滿一歲請寫幾個月)</div>
 <input id="petAge" class="input" placeholder="例：5">
 
+      <div class="label">是否植入晶片</div>
+<select id="petChip" class="input">
+  <option value="">請選擇</option>
+  <option value="yes">是（已植入）</option>
+  <option value="no">否（未植入）</option>
+</select>
+
+<!-- 晶片號碼（預設隱藏） -->
+<div id="chipNumberWrap" style="display:none;">
+  <div class="label">晶片號碼</div>
+  <input id="chipNumber" class="input" placeholder="請輸入15碼晶片號碼">
+</div>
+
+<!-- 未植入同意（預設隱藏） -->
+<div id="noChipAgreeWrap" style="display:none;">
+  <label class="checkItem">
+    <input id="noChipAgree" type="checkbox">
+    <span>本人同意於現場簽署「未植入晶片寵物服務同意書」</span>
+  </label>
+</div>
+      
 <div class="label">是否曾有咬人紀錄</div>
 <select id="petBiteHistory" class="input">
   <option value="">請選擇</option>
@@ -610,6 +631,30 @@ placeholder="例如：頭不要剪太短、怕吹風"
   });
 }
   const petName = document.getElementById("petName");
+  const petChip = document.getElementById("petChip");
+const chipNumberWrap = document.getElementById("chipNumberWrap");
+const chipNumber = document.getElementById("chipNumber");
+const noChipAgreeWrap = document.getElementById("noChipAgreeWrap");
+const noChipAgree = document.getElementById("noChipAgree");
+
+if(petChip){
+  petChip.addEventListener("change", () => {
+
+    if(petChip.value === "yes"){
+      chipNumberWrap.style.display = "block";
+      noChipAgreeWrap.style.display = "none";
+    }
+    else if(petChip.value === "no"){
+      chipNumberWrap.style.display = "none";
+      noChipAgreeWrap.style.display = "block";
+    }
+    else{
+      chipNumberWrap.style.display = "none";
+      noChipAgreeWrap.style.display = "none";
+    }
+
+  });
+}
   const petBreed = document.getElementById("petBreed");
   const signDate = document.getElementById("signDate");
 
@@ -877,6 +922,31 @@ if(!isValidTaiwanId(data.ownerIdNo)){
         return;
       }
 
+      // 晶片驗證
+if(petChip.value === "yes"){
+  if(!chipNumber.value.trim()){
+    setError("請輸入晶片號碼");
+    chipNumber.focus();
+    resetSubmit();
+    return;
+  }
+
+  if(!/^\d{15}$/.test(chipNumber.value.trim())){
+    setError("晶片號碼需為15碼數字");
+    chipNumber.focus();
+    resetSubmit();
+    return;
+  }
+}
+
+if(petChip.value === "no"){
+  if(!noChipAgree.checked){
+    setError("請勾選未植入晶片同意書");
+    resetSubmit();
+    return;
+  }
+}
+      
       const textMsg =
 `【犬貓美容契約簽署資料】
 甲方姓名：${data.ownerName}
@@ -890,6 +960,9 @@ Email：${data.ownerEmail}
 品種：${data.petBreed}
 性別：${petGender.value}
 年齡：${petAge.value}
+是否植入晶片：${petChip.value === "yes" ? "是" : petChip.value === "no" ? "否" : ""}
+晶片號碼：${chipNumber.value || "無"}
+未植入同意：${noChipAgree.checked ? "已同意" : "未勾選"}
 咬人紀錄：${petBiteHistory.value}
 社交狀況：${petSocial.value}
 疾病 / 過敏：${petHealth.value || "無"}
